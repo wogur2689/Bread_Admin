@@ -1,4 +1,4 @@
-package com.example.bread;
+package com.hyeok.bread_admin;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

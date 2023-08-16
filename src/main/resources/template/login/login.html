@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+
+    <!-- css -->
+    <link th:href="@{/css/reset.css}" type="text/css" rel="stylesheet">
+    <link th:href="@{/css/common.css}" type="text/css" rel="stylesheet">
+    <!-- js -->
+    <script th:src="@{/js/common.js}"></script>
+</head>
+<body>
+    <div id="main">
+        <div id="sidebar"></div>
+        <form th:action="@{/login}" method="post" id="login-form">
+            <span><img th:src="@{/img/icon.png}" alt="D"><p class="title">MC</p></span>
+            <input type="text" id="username" name="username" autofocus="autofocus" placeholder="username"/> <br />
+            <input type="password" id="password" name="password" placeholder="password"/> <br />
+            <input type="submit" id="login-button" value="Log in" />
+        </form>
+    </div>
+</body>
+</html>
