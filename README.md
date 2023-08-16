@@ -4,15 +4,26 @@
 - 프로젝트가 규모가 커서 레포가 더 추가될 확률이 높음.
 
 <h3> skill </h3>
-- admin
-  - Spring boot (back)
-  - thymeleaf (front)
-- front
-  - Node.js (back)
-  - vue (front)
-- batch
-  - Nest.js (back)
-  - Next.js (front)
+<ul>
+  <li>admin
+      <ul>
+          <li>Spring boot (back)</li>
+          <li>thymeleaf (front)</li>
+      </ul>
+  </li>
+  <li>front
+    <ul>
+      <li>Node.js (back)</li>
+      <li>vue (front)</li>
+    </ul>
+  </li>
+  <li>batch
+    <ul>
+      <li>Nest.js (back)</li>  
+      <li>Next.js (front)</li>
+    </ul>
+  </li>
+</ul>
 
 <h3> 스토리 </h3>
 갓구운 빵을 파는 작은 코딩빵집.
@@ -20,21 +31,35 @@
 일반 빵집을 홈쇼핑처럼 구현하면 ok.
   
 <h3> 구현할 기능 </h3>
-front
-  - 로그인 / 회원가입
-  - 상품
-  - 주문
-  - 장바구니
-  - 결제
-admin
-  - 로그인 / 회원가입
-  - 사용자 관리
-  - 상품관리
-  - 주문관리
-  - 결제 정보 관리
-batch
-  - 상품 데이터 수집(크롤링 / 매일 아침 9시)
-  - 가게 운영시간 관리(오픈은 오전 10시, 마감은 오후 10시)
+<ul>
+  <li>admin
+      <ul>
+          <li>로그인 / 회원가입</li>
+          <li>사용자 관리</li>
+          <li>상품 관리</li>
+          <li>주문 관리</li>
+          <li>결제 관리</li>
+          <li>이벤트 관리</li>
+      </ul>
+  </li>
+  <li>front
+    <ul>
+      <li>로그인 / 회원가입</li>
+      <li>상품 진열</li>
+      <li>주문</li>
+      <li>장바구니</li>
+      <li>결제</li>
+    </ul>
+  </li>
+  <li>batch
+    <ul>
+      <li>상품 데이터 수집(크롤링 / 매일 아침 9시)</li>  
+      <li>상품 유통기한 관리</li>
+      <li>정산 데이터 관리</li>
+      <li>가게 운영시간 관리(오픈은 오전 10시, 마감은 오후 10시)</li>
+    </ul>
+  </li>
+</ul>
 
 
 <h3>프로젝트 기간</h3>
