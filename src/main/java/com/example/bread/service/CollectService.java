@@ -1,5 +1,6 @@
 package com.example.bread.service;
 
-public class MainService {
+@Service
+public class CollectService {
 
 }
