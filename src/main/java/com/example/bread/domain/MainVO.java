@@ -1,4 +1,4 @@
-package com.hyeok.bread_admin.domain;
+package com.example.bread.domain;
 
 import lombok.*;
 

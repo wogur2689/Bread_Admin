@@ -1,4 +1,4 @@
-package com.hyeok.bread_admin.util;
+package com.example.bread.util;
 
 import lombok.Getter;
 

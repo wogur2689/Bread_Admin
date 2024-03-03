@@ -1,4 +1,4 @@
-package com.hyeok.bread_admin.config;
+package com.example.bread.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
