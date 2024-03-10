@@ -1,17 +1,19 @@
 package com.example.bread.controller;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Collections;
-import java.util.Map;
-
-@RestController
+@Controller
+@RequestMapping("/login")
 public class LoginController {
-    @GetMapping("/user")
-    public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
-        return Collections.singletonMap("name", principal.getAttribute("name"));
+    /**
+     * 로그인 화면
+     */
+    @GetMapping
+    public ModelAndView login(ModelAndView mav) {
+        mav.setViewName("login/login");
+        return mav;
     }
 }
