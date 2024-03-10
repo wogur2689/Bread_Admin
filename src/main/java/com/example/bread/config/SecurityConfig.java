@@ -1,101 +1,63 @@
 package com.example.bread.config;
 
+import com.example.bread.config.handler.LoginFailureHandler;
+import com.example.bread.config.handler.LoginSuccessHandler;
+import com.example.bread.config.handler.LogoutCustomHandler;
+import com.example.bread.service.CustomUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
-import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
-import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
-import org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction;
-import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.OAuth2Error;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.HttpStatusEntryPoint;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.web.reactive.function.client.WebClient;
-
-import java.util.List;
-import java.util.Map;
-
-import static org.springframework.security.oauth2.client.web.reactive.function.client.ServerOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity //웹 보안 활성화
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        SimpleUrlAuthenticationFailureHandler handler = new SimpleUrlAuthenticationFailureHandler("/");
-        //페이지 인증설정(일단은 전부 해제
-        http
-                .authorizeHttpRequests(request -> request
-                        .requestMatchers("/**")
-                        .permitAll()
-                )
-                .exceptionHandling(e -> e
-                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
-                )
-                .oauth2Login(o -> o
-                        .failureHandler((request, response, exception) -> {
-                            request.getSession().setAttribute("error.message", exception.getMessage());
-                            handler.onAuthenticationFailure(request, response, exception);
-                        })
-                )
-                .logout(l -> l
-                        .logoutSuccessUrl("/").permitAll()
-                )
-                .csrf(c -> c
-                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-        )
-        ;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
+    /**
+     * Securtity 설정
+     */
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        //1단계 보안 검사
+        http.csrf(AbstractHttpConfigurer::disable); //csrf보호(지금은 사용안함)
+        http.authorizeHttpRequests(request ->
+                        request
+                                .requestMatchers("/**")//개발을 위해 잠시 모두 해제
+                                .permitAll() //해당 경로는 보안검사 없음.
+//                   .anyRequest()
+//                   .authenticated() //나머진 모두 보안검사
+        );
+        //2단계 로그인 폼 설정
+        http.formLogin(login ->
+                login
+                        .loginPage("/login") //사용자 정의 로그인 페이지
+                        .loginProcessingUrl("/login-processing") //로그인 form action Url
+                        .defaultSuccessUrl("/") //성공시 메인페이지로 이동
+                        .usernameParameter("username") //id 파라미터
+                        .passwordParameter("password") //password 파라미터
+                        .successHandler(new LoginSuccessHandler()) //로그인 성공 핸들러
+                        .failureHandler(new LoginFailureHandler()) //로그인 실패 핸들러
+                        .permitAll() //로그인 페이지 접근 권한 승인
+        );
+        //3단계 로그아웃 설정
+        http.logout(logout ->
+                logout
+                        .deleteCookies("JSESSIONID","remember-me") //로그아웃시 쿠키 삭제
+                        .addLogoutHandler(new LogoutCustomHandler()) //로그아웃 핸들러
+                        .permitAll()
+        );
+        //4단계 인증 절차
+        http.authenticationProvider(new LoginProvider(customUserDetailsService, getPasswordEncoder()));
         return http.build();
     }
-
-    @Bean
-    public WebClient rest(ClientRegistrationRepository clients, OAuth2AuthorizedClientRepository authz) {
-        ServletOAuth2AuthorizedClientExchangeFilterFunction oauth2 =
-                new ServletOAuth2AuthorizedClientExchangeFilterFunction(clients, authz);
-        return WebClient.builder()
-                .filter(oauth2).build();
-    }
-
-    @Bean
-    public OAuth2UserService<OAuth2UserRequest, OAuth2User> oauth2UserService(WebClient rest) {
-        DefaultOAuth2UserService delegate = new DefaultOAuth2UserService();
-        return request -> {
-            OAuth2User user = delegate.loadUser(request);
-            if (!"github".equals(request.getClientRegistration().getRegistrationId())) {
-                return user;
-            }
-
-            OAuth2AuthorizedClient client = new OAuth2AuthorizedClient
-                    (request.getClientRegistration(), user.getName(), request.getAccessToken());
-            String url = user.getAttribute("organizations_url");
-            List<Map<String, Object>> orgs = rest
-                    .get().uri(url)
-                    .attributes(oauth2AuthorizedClient(client))
-                    .retrieve()
-                    .bodyToMono(List.class)
-                    .block();
-
-            if (orgs.stream().anyMatch(org -> "spring-projects".equals(org.get("login")))) {
-                return user;
-            }
-
-            throw new OAuth2AuthenticationException(new OAuth2Error("invalid_token", "Not in Spring Team", ""));
-        };
-    }
-
 
     /**
      * 패스워드 인코더
@@ -105,3 +67,4 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
+
