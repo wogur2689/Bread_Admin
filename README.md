@@ -17,7 +17,7 @@
       <li>vue (front)</li>
     </ul>
   </li>
-  <li>batch
+  <li>batch(추후 개발)
     <ul>
       <li>Nest.js (back)</li>  
       <li>Next.js (front)</li>
