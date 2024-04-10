@@ -29,11 +29,11 @@ public class SecurityConfig {
         //1단계 보안 검사
         http.csrf(AbstractHttpConfigurer::disable); //csrf보호(지금은 사용안함)
         http.authorizeHttpRequests(request ->
-                        request
-                                .requestMatchers("/**")//개발을 위해 잠시 모두 해제
-                                .permitAll() //해당 경로는 보안검사 없음.
-//                   .anyRequest()
-//                   .authenticated() //나머진 모두 보안검사
+                request
+                        .requestMatchers("/css", "/js", "/img")//개발을 위해 잠시 모두 해제
+                        .permitAll() //해당 경로는 보안검사 없음.
+                        .anyRequest()
+                        .authenticated() //나머진 모두 보안검사
         );
         //2단계 로그인 폼 설정
         http.formLogin(login ->

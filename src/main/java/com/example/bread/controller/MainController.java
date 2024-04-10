@@ -21,9 +21,9 @@ public class MainController {
      * @param mav
      * @return
      */
-    @GetMapping("/userList")
+    @GetMapping("/userManage")
     public ModelAndView user(ModelAndView mav) {
-        mav.setViewName("user/userList");
+        mav.setViewName("user/userManage");
         return mav;
     }
 }
