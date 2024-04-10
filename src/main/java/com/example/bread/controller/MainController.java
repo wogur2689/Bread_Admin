@@ -15,4 +15,15 @@ public class MainController {
         mav.setViewName("index");
         return mav;
     }
+
+    /**
+     * 유저 관리
+     * @param mav
+     * @return
+     */
+    @GetMapping("/userList")
+    public ModelAndView user(ModelAndView mav) {
+        mav.setViewName("user/userList");
+        return mav;
+    }
 }
