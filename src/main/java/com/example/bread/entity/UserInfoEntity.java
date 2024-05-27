@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 /**
- * 기본 로그인 entity
+ * 관리자 정보
  */
 @Getter
 @Entity
