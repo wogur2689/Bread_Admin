@@ -6,5 +6,72 @@
 </head>
 <body>
     <h1>유저 관리</h1>
+    <h1>검색기능 추후 추가</h1>
+    <div class="container pt-4 mw-100">
+        <div class="pb-1">
+            <!--            전체 회원 수 : <span th:text="${list.totalElements}"></span>-->
+        </div>
+        <table class="table">
+            <thead class="thead-light">
+            <tr class="text-center">
+                <th scope="col" style="width: 110px">번호</th>
+                <th scope="col" style="width: 300px">유저명</th>
+                <th scope="col" style="width: 180px">가입 시기</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--                <th:block th:if="${list == null}">-->
+            <!--                    현재 게시글이 없습니다.-->
+            <!--                </th:block>-->
+            <!--                <th:block th:unless="${list != null}">-->
+            <tr class="text-center" th:each="user : ${userList}">
+                <th scope="row">
+                    <span th:text="${user.id}"></span>
+                </th>
+                <td>
+                    <a class="post-link" th:href="@{'/board/view/' + ${user.id}}">
+                        <span th:text="${user.name}"></span>
+                    </a>
+                </td>
+                <td>
+                    <span>미정</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+<!--        <div class="form-group d-flex justify-content-between align-items-center">-->
+<!--                        <form th:action="@{/board/list}" method="get">-->
+<!--                            <div class="d-flex">-->
+<!--                                <select id="searchType" name="searchType">-->
+<!--                                    <option value="writer">작성자</option>-->
+<!--                                    <option value="title">제목</option>-->
+<!--                                </select>-->
+<!--                                <label for="searchKeyword" class="ms-lg-1">검색어 : </label>-->
+<!--                                <input type="text" id="searchKeyword" name="searchKeyword"/>-->
+<!--            &lt;!&ndash;                    <input type="text" id="searchKeyword" name="searchKeyword" th:value="${searchKeyword}"/>&ndash;&gt;-->
+<!--                                <button type="submit" style="margin-left: 10px">검색</button>-->
+<!--                            </div>-->
+<!--                        </form>-->
+<!--        </div>-->
+<!--        <div class="col-12 d-flex justify-content-center align-items-center">-->
+<!--            <div class="col-12 d-flex justify-content-center align-items-center">-->
+<!--                <ul class="pagination">-->
+<!--                    <li class="page-item" th:if="${list.hasPrevious() and not list.first}"-->
+<!--                        th:classappend="${list.first? 'disabled' : ''}">-->
+<!--                        <a class="page-link" th:href="@{'/board/list?page=' + ${list.number - 1}}">이전</a>-->
+<!--                    </li>-->
+
+<!--                    <li th:each="page : ${#numbers.sequence(0, list.totalPages - 1)}"-->
+<!--                        th:classappend="${page == list.number? 'active' : ''}">-->
+<!--                        <a class="page-link" th:href="@{'/board/list?page=' + ${page}}" th:text="${page + 1}"></a>-->
+<!--                    </li>-->
+<!--                    <li class="page-item" th:if="${list.hasNext()}" th:classappend="${list.last? 'disabled' : ''}">-->
+<!--                        <a class="page-link" th:href="@{'/board/list?page=' + ${list.number + 1}}">다음</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
 </body>
 </html>
