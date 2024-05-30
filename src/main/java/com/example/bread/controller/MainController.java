@@ -22,7 +22,7 @@ public class MainController {
     /**
      * 로그인 화면
      */
-    @GetMapping
+    @GetMapping("/login")
     public ModelAndView login(ModelAndView mav) {
         mav.setViewName("login/login");
         return mav;
