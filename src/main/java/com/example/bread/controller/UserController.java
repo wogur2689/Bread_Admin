@@ -20,7 +20,7 @@ public class UserController {
      * 전체 유저 목록
      */
     @GetMapping("/userList")
-    public ModelAndView getUserList(HttpServletRequest request, ModelAndView mav) {
+    public ModelAndView getUserList(ModelAndView mav) {
         mav.addObject("userList", userService.getUserList());
         mav.setViewName("jsonView");
         return mav;
