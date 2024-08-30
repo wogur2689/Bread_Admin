@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns="http://www.w3.org/1999/html"
+      data-bs-theme="white">
+    <!-- head -->
+    <th:block th:replace="~{/common/fragments/head :: headFragment}"></th:block>
+<body>
+    <!-- header -->
+    <th:block th:replace="~{/common/fragments/header :: headerFragment}"></th:block>
+    <!-- light mode & dark mode-->
+    <th:block th:replace="~{/common/fragments/color-modes :: colorModesFragment}"></th:block>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- sidebar -->
+            <th:block th:replace="~{/common/fragments/sideBar :: sideBarFragment}"></th:block>
+            <!-- content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <th:block layout:fragment="content"></th:block>
+            </main>
+        </div>
+        <!-- footer -->
+        <th:block th:replace="~{/common/fragments/footer :: footerFragment}"></th:block>
+    </div>
+</body>
+</html>
