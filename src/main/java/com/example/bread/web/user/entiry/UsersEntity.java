@@ -8,11 +8,11 @@ import lombok.*;
  */
 @Getter
 @Entity
-@Table(name = "user_info")
+@Table(name = "users")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class UserInfoEntity {
+public class UsersEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

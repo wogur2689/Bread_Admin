@@ -1,7 +1,7 @@
 package com.example.bread.web.user.service;
 
-import com.example.bread.web.user.entiry.Users;
-import com.example.bread.web.user.repository.UserRepository;
+import com.example.bread.web.user.entiry.UsersEntity;
+import com.example.bread.web.user.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,13 +13,13 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class UserService {
-    private final UserRepository userRepository;
+public class UsersService {
+    private final UsersRepository usersRepository;
 
     /**
      * 유저 목록 반환(추후 페이징 적용)
      */
-    public List<Users> getUserList() {
-        return userRepository.findAll();
+    public List<UsersEntity> getUserList() {
+        return usersRepository.findAll();
     }
 }

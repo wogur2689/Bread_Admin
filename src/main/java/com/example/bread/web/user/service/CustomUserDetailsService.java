@@ -1,9 +1,9 @@
 package com.example.bread.web.user.service;
 
 import com.example.bread.web.user.dto.CustomUserDetails;
-import com.example.bread.web.user.entiry.UserInfoEntity;
-import com.example.bread.web.user.repository.UserInfoRepository;
-import com.example.bread.web.main.domain.Role;
+import com.example.bread.web.user.entiry.UsersEntity;
+import com.example.bread.web.user.repository.UsersRepository;
+import com.example.bread.web.user.util.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,12 +21,12 @@ import java.util.Optional;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserInfoRepository userInfoRepository;
+    private UsersRepository usersRepository;
 
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
         //1. db에서 사용자 검색
-        Optional<UserInfoEntity> userInfo = Optional.ofNullable(userInfoRepository.findByUserId(userId)
+        Optional<UsersEntity> userInfo = Optional.ofNullable(usersRepository.findByUserId(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("해당 아이디는 없는 아이디입니다.")));
 
         //2. 유저 권한 생성

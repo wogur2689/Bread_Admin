@@ -1,4 +1,4 @@
-package com.example.bread.util;
+package com.example.bread.common.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

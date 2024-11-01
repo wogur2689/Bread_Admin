@@ -1,6 +1,6 @@
 package com.example.bread.web.user.controller;
 
-import com.example.bread.web.user.service.UserService;
+import com.example.bread.web.user.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,14 +16,14 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/user")
 public class UserController {
 
-    private final UserService userService;
+    private final UsersService usersService;
 
     /**
      * 유저 관리 화면
      */
     @GetMapping("/userList")
     public ModelAndView user(ModelAndView mav) {
-        mav.addObject("userList", userService.getUserList());
+        mav.addObject("userList", usersService.getUserList());
         mav.setViewName("user/user_list");
         return mav;
     }

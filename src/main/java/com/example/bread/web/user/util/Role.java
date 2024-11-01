@@ -1,4 +1,4 @@
-package com.example.bread.web.main.domain;
+package com.example.bread.web.user.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
