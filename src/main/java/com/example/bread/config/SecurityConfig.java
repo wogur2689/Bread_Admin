@@ -1,9 +1,10 @@
 package com.example.bread.config;
 
-import com.example.bread.config.handler.LoginFailureHandler;
-import com.example.bread.config.handler.LoginSuccessHandler;
-import com.example.bread.config.handler.LogoutCustomHandler;
-import com.example.bread.service.CustomUserDetailsService;
+import com.example.bread.web.user.service.handler.LoginFailureHandler;
+import com.example.bread.web.user.service.LoginProvider;
+import com.example.bread.web.user.service.handler.LoginSuccessHandler;
+import com.example.bread.web.user.service.handler.LogoutCustomHandler;
+import com.example.bread.web.user.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

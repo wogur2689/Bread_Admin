@@ -1,8 +1,10 @@
 package com.example.bread.util;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public enum CommonCode {
     /**
      * api 통신 코드
@@ -17,11 +19,6 @@ public enum CommonCode {
 
     private final String code;
     private final String msg;
-
-    CommonCode(String code, String msg) {
-        this.code = code;
-        this.msg = msg;
-    }
 
     public static String getMessage(String code) {
         if(code == null) {

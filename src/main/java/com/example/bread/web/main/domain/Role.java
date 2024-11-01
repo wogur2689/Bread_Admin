@@ -1,4 +1,4 @@
-package com.example.bread.domain;
+package com.example.bread.web.main.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

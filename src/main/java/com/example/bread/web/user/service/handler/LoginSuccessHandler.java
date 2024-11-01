@@ -1,7 +1,7 @@
-package com.example.bread.config.handler;
+package com.example.bread.web.user.service.handler;
 
-import com.example.bread.dto.LoginDto;
-import com.example.bread.domain.Role;
+import com.example.bread.web.user.dto.LoginDto;
+import com.example.bread.web.main.domain.Role;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

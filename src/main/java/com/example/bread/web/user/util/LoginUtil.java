@@ -1,4 +1,4 @@
-package com.example.bread.util;
+package com.example.bread.web.user.util;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,7 +10,6 @@ public class LoginUtil {
      */
     public static boolean isLogin() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(auth == null) return false;
-        return true;
+        return auth != null;
     }
 }

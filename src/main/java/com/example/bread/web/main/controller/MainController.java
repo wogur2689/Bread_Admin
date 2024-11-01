@@ -1,4 +1,4 @@
-package com.example.bread.controller;
+package com.example.bread.web.main.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,15 +25,6 @@ public class MainController {
     @GetMapping("/login")
     public ModelAndView login(ModelAndView mav) {
         mav.setViewName("login/login");
-        return mav;
-    }
-
-    /**
-     * 유저 관리 화면
-     */
-    @GetMapping("/userManage")
-    public ModelAndView user(ModelAndView mav) {
-        mav.setViewName("user/userManage");
         return mav;
     }
 }

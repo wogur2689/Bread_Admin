@@ -1,4 +1,4 @@
-package com.example.bread.dto;
+package com.example.bread.web.user.dto;
 
 import lombok.*;
 

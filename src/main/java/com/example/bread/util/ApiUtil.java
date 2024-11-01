@@ -1,6 +1,6 @@
 package com.example.bread.util;
 
-import com.example.bread.domain.CommonVO;
+import com.example.bread.web.main.domain.CommonVO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 

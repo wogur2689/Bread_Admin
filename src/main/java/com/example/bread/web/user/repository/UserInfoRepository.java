@@ -1,6 +1,6 @@
-package com.example.bread.repository;
+package com.example.bread.web.user.repository;
 
-import com.example.bread.entity.UserInfoEntity;
+import com.example.bread.web.user.entiry.UserInfoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

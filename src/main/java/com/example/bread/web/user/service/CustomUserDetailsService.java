@@ -1,9 +1,9 @@
-package com.example.bread.service;
+package com.example.bread.web.user.service;
 
-import com.example.bread.dto.CustomUserDetails;
-import com.example.bread.entity.UserInfoEntity;
-import com.example.bread.repository.UserInfoRepository;
-import com.example.bread.domain.Role;
+import com.example.bread.web.user.dto.CustomUserDetails;
+import com.example.bread.web.user.entiry.UserInfoEntity;
+import com.example.bread.web.user.repository.UserInfoRepository;
+import com.example.bread.web.main.domain.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

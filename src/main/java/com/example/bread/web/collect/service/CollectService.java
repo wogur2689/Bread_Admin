@@ -1,4 +1,4 @@
-package com.example.bread.service;
+package com.example.bread.web.collect.service;
 
 import org.springframework.stereotype.Service;
 

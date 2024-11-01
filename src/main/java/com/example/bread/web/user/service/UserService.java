@@ -1,7 +1,7 @@
-package com.example.bread.service;
+package com.example.bread.web.user.service;
 
-import com.example.bread.entity.Users;
-import com.example.bread.repository.UserRepository;
+import com.example.bread.web.user.entiry.Users;
+import com.example.bread.web.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

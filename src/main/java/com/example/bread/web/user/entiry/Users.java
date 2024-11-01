@@ -1,4 +1,4 @@
-package com.example.bread.entity;
+package com.example.bread.web.user.entiry;
 
 import jakarta.persistence.*;
 import lombok.*;

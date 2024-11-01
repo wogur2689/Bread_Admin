@@ -1,4 +1,4 @@
-package com.example.bread.config.handler;
+package com.example.bread.web.user.service.handler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
