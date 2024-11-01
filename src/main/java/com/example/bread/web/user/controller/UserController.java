@@ -21,20 +21,10 @@ public class UserController {
     /**
      * 유저 관리 화면
      */
-    @GetMapping("/userManage")
+    @GetMapping("/userList")
     public ModelAndView user(ModelAndView mav) {
         mav.addObject("userList", userService.getUserList());
-        mav.setViewName("user/userManage");
-        return mav;
-    }
-
-    /**
-     * 전체 유저 목록
-     */
-    @GetMapping("/userList")
-    public ModelAndView getUserList(ModelAndView mav) {
-        mav.addObject("userList", userService.getUserList());
-        mav.setViewName("jsonView");
+        mav.setViewName("user/user_list");
         return mav;
     }
 }
