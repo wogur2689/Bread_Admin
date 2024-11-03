@@ -1,5 +1,6 @@
 package com.example.bread.web.menu.entity;
 
+import com.example.bread.web.menu.dto.MenuDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,4 +24,12 @@ public class MenuEntity {
 
     @Column(name = "menuRole")
     private String menuRole;        //접근권한 (기본은 guest)
+
+    public static MenuEntity toEntity(MenuDto menuDto) {
+        return MenuEntity.builder()
+                .menuMame(menuDto.getMenuMame())
+                .menuUrl(menuDto.getMenuUrl())
+                .menuRole(menuDto.getMenuRole())
+                .build();
+    }
 }
