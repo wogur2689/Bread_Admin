@@ -1,5 +1,6 @@
 package com.example.bread.web.menu.entity;
 
+import com.example.bread.common.entity.TimeEntity;
 import com.example.bread.web.menu.dto.MenuDto;
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,7 +11,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MenuEntity {
+public class MenuEntity extends TimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
