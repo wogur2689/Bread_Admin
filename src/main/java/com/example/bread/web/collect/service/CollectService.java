@@ -1,7 +1,7 @@
 package com.example.bread.web.collect.service;
 
-import com.example.bread.web.collect.entity.ProductEntity;
 import com.example.bread.web.collect.repository.CollectRepository;
+import com.example.bread.web.product.entity.ProductEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;

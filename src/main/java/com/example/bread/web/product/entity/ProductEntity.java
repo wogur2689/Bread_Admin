@@ -1,7 +1,7 @@
-package com.example.bread.web.collect.entity;
+package com.example.bread.web.product.entity;
 
 import com.example.bread.common.entity.TimeEntity;
-import com.example.bread.web.menu.dto.MenuDto;
+import com.example.bread.web.product.dto.ProductDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,4 +25,13 @@ public class ProductEntity extends TimeEntity {
 
     @Column(name = "image_url")
     private String imageUrl;    //이미지 경로
+
+    //dto -> entity
+    public static ProductEntity toEntity(ProductDto productDto) {
+        return ProductEntity.builder()
+                .name(productDto.getName())
+                .price(productDto.getPrice())
+                .imageUrl(productDto.getImageUrl())
+                .build();
+    }
 }
