@@ -1,14 +1,11 @@
 package com.example.bread.common.dto;
 
-import lombok.*;
+import lombok.Builder;
 
-@Getter
-@ToString
+//java 14에서 부터 record 사용가능
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CommonDto {
-    private String code; //결과코드
-    private String msg;  //반환메세지
-    private Object data; //데이터
-}
+public record CommonDto(
+    String code, //결과코드
+    String msg,  //반환메세지
+    Object data  //데이터
+){}
