@@ -1,6 +1,6 @@
 package com.example.bread.common.util;
 
-import com.example.bread.common.vo.CommonVO;
+import com.example.bread.common.dto.CommonDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
@@ -20,14 +20,14 @@ public class ApiUtil {
     /**
      * 공통 결과 리턴형식(메세지, 코드)
      */
-    public static CommonVO commonReturn(String code, String msg) {
-        return CommonVO.builder().code(code).msg(msg).build();
+    public static CommonDto commonReturn(String code, String msg) {
+        return CommonDto.builder().code(code).msg(msg).build();
     }
 
     /**
      * 공통 결과 리턴형식(메세지, 코드, 내용)
      */
-    public static CommonVO commonDataReturn(Object data, String code, String msg) {
-        return CommonVO.builder().code(code).msg(msg).data(data).build();
+    public static CommonDto commonDataReturn(Object data, String code, String msg) {
+        return CommonDto.builder().code(code).msg(msg).data(data).build();
     }
 }
