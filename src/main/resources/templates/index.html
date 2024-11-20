@@ -4,20 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/common/layout/default_layout}">
 <th:block layout:fragment="content">
-    <div id="sidebar">
-        <span class="icon-text">
-            <img th:src="@{/img/icon.png}" alt="home"/>
-            <label class="icon-text-select">home</label>
-        </span>
-        <span class="icon-text">
-            <img th:src="@{/img/icon.png}" alt="FoodAndPlay"/>
-            <label><a th:href="@{/foodandplay}">FoodAndPlay</a></label>
-        </span>
-        <span class="icon-text">
-            <img th:src="@{/img/icon.png}" alt="CardNews"/>
-            <label><a th:href="@{/cardnews}">CardNews</a></label>
-        </span>
-    </div>
     <h1>Bread Admin Welcome!</h1>
     <a th:href="@{/user/userList}">유저 관리</a>
 </th:block>
+</html>
