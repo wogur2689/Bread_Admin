@@ -3,16 +3,16 @@
 <th:block th:fragment="sideBarFragment">
     <div id="sidebar">
         <span class="icon-text">
-            <img th:src="@{/img/icon.png}" alt="home"/>
-            <label class="icon-text-select">home</label>
+            <img th:src="@{/img/icon.png}" alt="메인"/>
+            <label class="icon-text-select">메인</label>
         </span>
         <span class="icon-text">
-            <img th:src="@{/img/icon.png}" alt="FoodAndPlay"/>
-            <label><a th:href="@{/foodandplay}">FoodAndPlay</a></label>
+            <img th:src="@{/img/icon.png}" alt="유저관리"/>
+            <label><a th:href="@{/user/userList}">유저관리</a></label>
         </span>
         <span class="icon-text">
-            <img th:src="@{/img/icon.png}" alt="CardNews"/>
-            <label><a th:href="@{/cardnews}">CardNews</a></label>
+            <img th:src="@{/img/icon.png}" alt="상품관리"/>
+            <label><a th:href="@{/product/productList}">상품관리</a></label>
         </span>
     </div>
 </th:block>

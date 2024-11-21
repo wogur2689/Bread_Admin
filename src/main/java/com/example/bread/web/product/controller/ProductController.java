@@ -24,30 +24,30 @@ import org.springframework.web.servlet.ModelAndView;
 public class ProductController {
     private final ProductService productService;
 
-    @GetMapping("/list")
+    @GetMapping("/productList")
     public ModelAndView list(ModelAndView mav) {
-        mav.addObject("data", productService.list());
-        mav.setViewName("product/list");
+        mav.addObject("response", productService.list());
+        mav.setViewName("product/product_list");
         return mav;
     }
 
-    @GetMapping("/view/{id}")
+    @GetMapping("/productView/{id}")
     public ModelAndView view(@PathVariable Long id, ModelAndView mav) {
-        mav.addObject("data", productService.view(id));
-        mav.setViewName("product/view");
+        mav.addObject("response", productService.view(id));
+        mav.setViewName("product/product_view");
         return mav;
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/productEdit/{id}")
     public ModelAndView edit(@PathVariable Long id, ModelAndView mav) {
-        mav.addObject("data", productService.view(id));
-        mav.setViewName("product/edit");
+        mav.addObject("response", productService.view(id));
+        mav.setViewName("product/product_edit");
         return mav;
     }
 
-    @GetMapping("/write")
+    @GetMapping("/productWrite")
     public ModelAndView write(ModelAndView mav) {
-        mav.setViewName("product/write");
+        mav.setViewName("product/product_write");
         return mav;
     }
 
