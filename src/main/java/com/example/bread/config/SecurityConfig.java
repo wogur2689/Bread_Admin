@@ -31,7 +31,7 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable); //csrf보호(지금은 사용안함)
         http.authorizeHttpRequests(request ->
                 request
-                        .requestMatchers("/css/**", "/js/**", "/img/**", "/**")//개발을 위해 잠시 모두 해제
+                        .requestMatchers("/css/**", "/js/**", "/img/**", "/common/**",  "/static/**", "/resources/**")//개발을 위해 잠시 모두 해제
                         .permitAll() //해당 경로는 보안검사 없음.
                         .anyRequest()
                         .authenticated() //나머진 모두 보안검사
