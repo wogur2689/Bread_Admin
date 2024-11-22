@@ -29,9 +29,9 @@ public class ProductEntity extends TimeEntity {
     //dto -> entity
     public static ProductEntity toEntity(ProductDto productDto) {
         return ProductEntity.builder()
-                .name(productDto.getName())
-                .price(productDto.getPrice())
-                .imageUrl(productDto.getImageUrl())
+                .name(productDto.name())
+                .price(productDto.price())
+                .imageUrl(productDto.imageUrl())
                 .build();
     }
 }

@@ -28,9 +28,9 @@ public class MenuEntity extends TimeEntity {
 
     public static MenuEntity toEntity(MenuDto menuDto) {
         return MenuEntity.builder()
-                .menuMame(menuDto.getMenuMame())
-                .menuUrl(menuDto.getMenuUrl())
-                .menuRole(menuDto.getMenuRole())
+                .menuMame(menuDto.menuMame())
+                .menuUrl(menuDto.menuUrl())
+                .menuRole(menuDto.menuRole())
                 .build();
     }
 }

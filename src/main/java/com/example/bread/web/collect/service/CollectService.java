@@ -20,7 +20,7 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class CollectService {
-    private CollectRepository collectRepository;
+    private final CollectRepository collectRepository;
     private final String parisUrl = "https://www.paris.co.kr/products/?cat1=%EB%B8%8C%EB%A0%88%EB%93%9C";
 
     // 파리바게트 데이터 가져오기
