@@ -3,6 +3,134 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{common/layout/default_layout}">
 <th:block layout:fragment="content">
-    <h1>Bread Admin Welcome!</h1>
+    <!-- hero -->
+    <section class="bg-primary">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-white text-center">
+                    <h1 class="font-weight-light">Welcome. <b>Bread Admin!</b></h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <a href="https://themes.getbootstrap.com/product/guidebook-online-documentation-template/" class="btn btn-green">Purchase Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / hero -->
+
+    <!-- components -->
+    <section class="pt-0">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center">
+                    <h2><b>Highlight</b> what's important.</h2>
+                    <p>We offer high ammount of different components to showcase your content in the best way possible.</p>
+                </div>
+            </div>
+            <div class="row gutter-3 align-items-center">
+                <div class="col-lg-7">
+                    <div class="row justify-content-center justify-content-lg-start">
+                        <div class="col-6 col-md-4">
+                            <div class="type boxed">
+                                <div>
+                                    <span class="badge badge-green">New</span>
+                                    <h5 class="type-title">Open Sans</h5>
+                                    <div class="type-example">
+                                        <span>Ab</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="type bordered">
+                                <div>
+                                    <h5 class="type-title">Open Sans Bold</h5>
+                                    <div class="type-example">
+                                        <span class="font-weight-bold">Ab</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3 justify-content-center justify-content-lg-start">
+                        <div class="col-md-6">
+                            <div class="color bordered">
+                                <span class="color-example bg-blue"></span>
+                                <div class="color-info">
+                                    <h5 class="color-title">Active Blue</h5>
+                                    <span>#064CDB</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / components -->
+
+
+
+    <!-- categories -->
+    <section class="bg-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center">
+                    <h2>What's <b>in the box</b> ?</h2>
+                    <p>Everything you might need to build a super intuitive &amp; readable documentation. Missing something ? <a href="mailto:support@webuildthemes.com" class="action text-dark">Request</a></p>
+                </div>
+            </div>
+            <div class="row gutter-1">
+                <div class="col-6 col-md-4 col-lg-2">
+                    <a href="documentation/components/accordions.html" title="Accordions" class="card bordered highlight">
+                        <div class="card-body text-center px-0 py-1 py-md-2 py-lg-3">
+                            <h5 class="fs-18">Accordions</h5>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <a href="documentation/components/alerts.html" title="Alerts" class="card bordered highlight">
+                        <div class="card-body text-center px-0 py-1 py-md-2 py-lg-3">
+                            <h5 class="fs-18">Alerts</h5>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <a href="documentation/components/widgets.html" title="Widgets" class="card bordered highlight">
+                        <div class="card-body text-center px-0 py-1 py-md-2 py-lg-3">
+                            <h5 class="fs-18">Widgets</h5>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <a href="documentation/content/typography.html" title="Typography" class="card bordered highlight">
+                        <div class="card-body text-center px-0 py-1 py-md-2 py-lg-3">
+                            <h5 class="fs-18">Typography</h5>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <a href="documentation/components/video.html" title="Video" class="card bordered highlight">
+                        <div class="card-body text-center px-0 py-1 py-md-2 py-lg-3">
+                            <h5 class="fs-18">Video</h5>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <a href="documentation/components/cards.html" title="Cards" class="card bordered highlight">
+                        <div class="card-body text-center px-0 py-1 py-md-2 py-lg-3">
+                            <h5 class="fs-18">Cards</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / categories -->
+
+    <script src="assets/js/vendor.min.js"></script>
+    <script src="assets/js/app.js"></script>
 </th:block>
 </html>
