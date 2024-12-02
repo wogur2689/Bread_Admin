@@ -2,27 +2,23 @@ package com.example.bread.web.user.service.handler;
 
 import com.example.bread.web.user.dto.LoginDto;
 import com.example.bread.web.user.util.Role;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import java.io.IOException;
+import java.util.Collection;
 
 /**
  * 로그인 성공시 세션 생성
  */
 @Slf4j
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
-    @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
-        AuthenticationSuccessHandler.super.onAuthenticationSuccess(request, response, chain, authentication);
-    }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
@@ -31,8 +27,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
         try {
             //2. id 추출
-            String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-            //Collection<GrantedAuthority> authority = (Collection<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+            String userId = authentication.getPrincipal().toString();
 
             //3. 유저 정보 세팅
             LoginDto loginDto = LoginDto.builder()

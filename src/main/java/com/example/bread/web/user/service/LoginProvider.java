@@ -1,5 +1,6 @@
 package com.example.bread.web.user.service;
 
+import com.example.bread.web.user.dto.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
