@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/common/layout/default_layout}">
+<th:block layout:fragment="content">
+    <h1>상품 관리</h1>
+    <div class="container pt-4 mw-100">
+        <table class="table">
+            <thead class="thead-light">
+            <tr class="text-center">
+                <th scope="col" style="width: 300px">상품명</th>
+                <th scope="col" style="width: 110px">가격</th>
+                <th scope="col" style="width: 180px">수정일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-center">
+                <th scope="row">
+                    <span th:text="${response.name}"></span>
+                </th>
+                <td>
+                    <span th:text="${response.price} + '원'"></span>
+                </td>
+                <td>
+                    <span th:text="${response.updatedAt}"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</th:block>
+</html>
