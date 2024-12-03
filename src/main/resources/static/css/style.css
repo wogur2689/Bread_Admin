@@ -158,6 +158,20 @@ footer {
     background-color: #b78e5d;
 }
 
+.writer-btn {
+    padding: 0.5rem 1rem;
+    background-color: #e3e121;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.writer-btn:hover {
+    background-color: #fde530;
+}
+
 .post-list {
     width: 100%;
     border-collapse: collapse;

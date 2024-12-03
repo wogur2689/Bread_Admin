@@ -4,35 +4,59 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/common/layout/default_layout}">
 <th:block layout:fragment="content">
-    <h1>유저 관리</h1>
-    <div class="container pt-4 mw-100">
+    <div class="community">
+        <h1>유저 관리</h1>
         <div class="pb-1">
-              전체 회원 수 : <span th:text="${userList.size}"></span>
+            전체 회원 수 : <span th:text="${userList.size}"></span>
         </div>
-        <table class="table">
-            <thead class="thead-light">
-            <tr class="text-center">
-                <th scope="col" style="width: 110px">번호</th>
-                <th scope="col" style="width: 300px">유저명</th>
-                <th scope="col" style="width: 180px">가입 시기</th>
+        <!-- Filter and Search/Create Section -->
+        <div class="filter-search">
+            <div class="filter">
+                <label for="start-date">시작일</label>
+                <input type="date" id="start-date" />
+                <label for="end-date">종료일</label>
+                <input type="date" id="end-date" />
+                <label for="post-count">글 갯수:</label>
+                <select id="post-count">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
+            <div class="search-create">
+                <input type="text" placeholder="키워드" />
+                <button class="create-btn">검색</button>
+                <button class="writer-btn">등록하기</button>
+            </div>
+        </div>
+
+        <!-- Posts Table -->
+        <table class="post-list">
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>유저명</th>
+                <th>가입시기</th>
             </tr>
             </thead>
             <tbody>
-            <tr class="text-center" th:each="user : ${userList}">
-                <th scope="row">
-                    <span th:text="${user.id}"></span>
-                </th>
-                <td>
-                    <a class="post-link" th:href="@{'/board/view/' + ${user.id}}">
-                        <span th:text="${user.name}"></span>
-                    </a>
-                </td>
-                <td>
-                    <span th:text="${user.createdAt}"></span>
-                </td>
+            <tr th:each="user : ${userList}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.createdAt}"></td>
             </tr>
+            <!-- Add more rows as needed -->
             </tbody>
         </table>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <button>&laquo;</button>
+            <button class="active">1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>&raquo;</button>
+        </div>
     </div>
 </th:block>
 </html>
