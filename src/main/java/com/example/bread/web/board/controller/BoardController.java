@@ -1,15 +1,13 @@
 package com.example.bread.web.board.controller;
 
+import com.example.bread.common.dto.SearchDto;
 import com.example.bread.common.util.CommonCode;
 import com.example.bread.web.board.dto.BoardDto;
 import com.example.bread.web.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -23,7 +21,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/boardList")
-    public ModelAndView list(ModelAndView mav) {
+    public ModelAndView list(ModelAndView mav, @ModelAttribute SearchDto searchDto) {
         mav.addObject("response", boardService.list());
         mav.setViewName("board/board_list");
         return mav;
