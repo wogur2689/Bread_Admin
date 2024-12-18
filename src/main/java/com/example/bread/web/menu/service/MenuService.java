@@ -1,5 +1,8 @@
 package com.example.bread.web.menu.service;
 
+import com.example.bread.common.util.CommonCode;
+import com.example.bread.web.board.dto.BoardDto;
+import com.example.bread.web.board.entity.BoardEntity;
 import com.example.bread.web.menu.dto.MenuDto;
 import com.example.bread.web.menu.entity.MenuEntity;
 import com.example.bread.web.menu.repository.MenuRepository;
@@ -17,23 +20,46 @@ import java.util.Optional;
 public class MenuService {
     private final MenuRepository menuRepository;
 
-    public List<MenuEntity> getMenuList() {
+    public List<MenuEntity> list() {
         return menuRepository.findAll();
     }
-    public MenuEntity getMenu(Long id) {
-        Optional<MenuEntity> opt = menuRepository.findById(id);
-        return opt.orElse(null);
+    public MenuEntity view(Long id) {
+        return menuRepository.findById(id).orElseThrow();
     }
 
-    public void insertMenu(MenuDto menuDto) {
-        menuRepository.save(MenuEntity.toEntity(menuDto));
+    public String insert(MenuDto menuDto) {
+        String code = CommonCode.CODE_0000.getCode();
+        try {
+            MenuEntity menu = MenuEntity.toEntity(menuDto);
+            menuRepository.save(menu);
+        } catch (Exception e) {
+            e.printStackTrace();
+            code = "9999";
+        }
+        return code;
     }
 
-    public void updateMenu(MenuDto menuDto) {
-        menuRepository.save(MenuEntity.toEntity(menuDto));
+    public String update(MenuDto menuDto) {
+        String code = CommonCode.CODE_0000.getCode();
+        try {
+            MenuEntity menu = MenuEntity.toEntity(menuDto);
+            menuRepository.save(menu);
+        } catch (Exception e) {
+            e.printStackTrace();
+            code = "9999";
+        }
+        return code;
     }
 
-    public void deleteMenu(MenuDto menuDto) {
-        menuRepository.delete(MenuEntity.toEntity(menuDto));
+    public String delete(MenuDto menuDto) {
+        String code = CommonCode.CODE_0000.getCode();
+        try {
+            MenuEntity menu = MenuEntity.toEntity(menuDto);
+            menuRepository.delete(menu);
+        } catch (Exception e) {
+            e.printStackTrace();
+            code = "9999";
+        }
+        return code;
     }
 }

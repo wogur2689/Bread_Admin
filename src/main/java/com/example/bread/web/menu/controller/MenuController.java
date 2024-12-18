@@ -1,5 +1,7 @@
 package com.example.bread.web.menu.controller;
 
+import com.example.bread.common.util.CommonCode;
+import com.example.bread.web.board.dto.BoardDto;
 import com.example.bread.web.menu.dto.MenuDto;
 import com.example.bread.web.menu.service.MenuService;
 import lombok.RequiredArgsConstructor;
@@ -17,81 +19,49 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/menu")
 public class MenuController {
     private final MenuService menuService;
-    /**
-     * 메뉴 목록 반환
-     */
-    @GetMapping("/list")
-    public ModelAndView getMenuList(ModelAndView mav) {
-        mav.addObject("menuList", menuService.getMenuList());
-        mav.setViewName("jsonView");
+
+    @GetMapping("/menuList")
+    public ModelAndView list(ModelAndView mav) {
+        mav.addObject("response", menuService.list());
+        mav.setViewName("menu/menu_list");
         return mav;
     }
 
-    /**
-     * 메뉴 관리 화면
-     */
-    @GetMapping("/menuManage")
-    public ModelAndView menuManage(ModelAndView mav) {
-        mav.addObject("menuList", menuService.getMenuList());
-        mav.setViewName("menu/list");
+    @GetMapping("/menuView/{id}")
+    public ModelAndView view(@PathVariable Long id, ModelAndView mav) {
+        mav.addObject("response", menuService.view(id));
+        mav.setViewName("menu/menu_view");
         return mav;
     }
 
-    /**
-     * 메뉴 관리 상세
-     */
-    @GetMapping("/menuManage/{id}")
-    public ModelAndView menuManage(@PathVariable Long id, ModelAndView mav) {
-        mav.addObject("menuData", menuService.getMenu(id));
-        mav.setViewName("menu/view");
+    @GetMapping("/menuEdit/{id}")
+    public ModelAndView edit(@PathVariable Long id, ModelAndView mav) {
+        mav.addObject("response", menuService.view(id));
+        mav.setViewName("menu/menu_edit");
         return mav;
     }
 
-    /**
-     * 메뉴 생성 폼
-     */
-    @GetMapping("/menuManage/menuWrite")
-    public ModelAndView menuWrite(ModelAndView mav) {
-        mav.setViewName("menu/write");
-        return mav;
-    }
-
-    /**
-     * 메뉴 수정 폼
-     */
-    @GetMapping("/menuManage/menuEdit")
+    @GetMapping("/menuWrite")
     public ModelAndView menuEdit(ModelAndView mav) {
-        mav.setViewName("menu/edit");
+        mav.setViewName("menu/menu_write");
         return mav;
     }
 
-    /**
-     * 메뉴 생성
-     */
-    @PostMapping("/menuCreate")
-    public ModelAndView menuCreate(ModelAndView mav, MenuDto menuDto) {
-        menuService.insertMenu(menuDto);
+    @PostMapping("/api/{svc}")
+    public ModelAndView boardApi(@PathVariable String svc, MenuDto menuDto, ModelAndView mav) {
+        String code = svcSwitch(svc, menuDto);
+        mav.addObject("code", code);
+        mav.addObject("msg", CommonCode.getMessage(code));
         mav.setViewName("jsonView");
         return mav;
     }
 
-    /**
-     * 메뉴 수정
-     */
-    @PostMapping("/menuUpdate")
-    public ModelAndView menuUpdate(ModelAndView mav, MenuDto menuDto) {
-        menuService.updateMenu(menuDto);
-        mav.setViewName("jsonView");
-        return mav;
-    }
-
-    /**
-     * 메뉴 삭제
-     */
-    @PostMapping("/menuDelete")
-    public ModelAndView menuDelete(ModelAndView mav, MenuDto menuDto) {
-        menuService.deleteMenu(menuDto);
-        mav.setViewName("jsonView");
-        return mav;
+    private String svcSwitch(String svc, MenuDto menuDto) {
+        return switch (svc) {
+            case "insert" -> menuService.insert(menuDto);
+            case "update" -> menuService.update(menuDto);
+            case "delete" -> menuService.delete(menuDto);
+            default -> CommonCode.CODE_0000.getCode();
+        };
     }
 }
