@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 /**
- * 관리자 정보
+ * 유저관리
  */
 @Getter
 @Entity
