@@ -17,10 +17,10 @@ public class BoardEntity extends TimeEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "subject")
+    @Column(name = "subject", nullable = false, length = 50)
     private String subject;     //제목
 
-    @Column(name = "contents")
+    @Column(name = "contents", nullable = false)
     private String contents;    //내용
 
     //dto -> entity

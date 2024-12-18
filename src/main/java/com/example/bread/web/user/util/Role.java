@@ -14,7 +14,7 @@ public enum Role {
     ADMIN("admin", "관리자");
 
     private final String role;
-    private final String msg;
+    private final String description;
     /**
      * 사용자 = 빵을 구매하는 사람
      * 점장 = 빵을 판매하는 사람
