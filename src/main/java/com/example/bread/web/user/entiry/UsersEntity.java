@@ -44,7 +44,7 @@ public class UsersEntity extends TimeEntity {
     @Column(name = "phone_number", nullable = false, length = 20)
     private String phoneNumber; //전화번호(010-0000-0000)
 
-    @Column(name = "address", nullable = false, length = 100)
+    @Column(name = "address", nullable = false, length = 200)
     private String address;     //주소
 
     @Column(name = "role", nullable = false, length = 20)
