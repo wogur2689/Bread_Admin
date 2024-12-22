@@ -4,9 +4,6 @@ import com.example.bread.common.entity.TimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * 유저관리
  */
