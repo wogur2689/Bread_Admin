@@ -1,11 +1,13 @@
 package com.example.bread.web.board.controller;
 
-import com.example.bread.common.dto.SearchDto;
+import com.example.bread.common.dto.PagingDto;
 import com.example.bread.common.util.CommonCode;
 import com.example.bread.web.board.dto.BoardDto;
+import com.example.bread.web.board.entity.BoardEntity;
 import com.example.bread.web.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,8 +23,14 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/boardList")
-    public ModelAndView list(ModelAndView mav, @ModelAttribute SearchDto searchDto) {
-        mav.addObject("response", boardService.list());
+    public ModelAndView list(ModelAndView mav, @ModelAttribute PagingDto pagingDto) {
+        int page = (pagingDto.page() != null && pagingDto.page() > 0) ? pagingDto.page() - 1 : 0;
+        int size = (pagingDto.size() != null && pagingDto.size() > 0) ? pagingDto.size() : 10;
+        Page<BoardEntity> response = boardService.list(page, size);
+
+        mav.addObject("response", response);
+        mav.addObject("currentPage", page + 1);
+        mav.addObject("totalPages", response.getTotalPages());
         mav.setViewName("board/board_list");
         return mav;
     }

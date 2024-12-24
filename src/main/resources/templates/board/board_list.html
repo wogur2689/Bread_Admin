@@ -54,12 +54,25 @@
         </table>
 
         <!-- Pagination -->
-        <div class="pagination">
-            <button>&laquo;</button>
-            <button class="active">1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>&raquo;</button>
+        <div class="pagination" th:if="${totalPages > 0}">
+            <!-- 이전 버튼 -->
+            <button th:if="${currentPage > 1}"
+                    th:onclick="|location.href='?page=${currentPage - 2}&size=${response.size}'|">
+                &laquo;
+            </button>
+
+            <!-- 페이지 번호 -->
+            <button th:each="i : ${#numbers.sequence(1, totalPages)}"
+                    th:classappend="${i == currentPage} ? 'active'"
+                    th:onclick="|location.href='?page=${i - 1}&size=${response.size}'|"
+                    th:text="${i}">
+            </button>
+
+            <!-- 다음 버튼 -->
+            <button th:if="${currentPage < totalPages}"
+                    th:onclick="|location.href='?page=${currentPage}&size=${response.size}'|">
+                &raquo;
+            </button>
         </div>
     </div>
     <!-- pagination -->
