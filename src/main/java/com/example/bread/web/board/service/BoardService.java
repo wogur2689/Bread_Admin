@@ -22,8 +22,8 @@ import java.util.List;
 public class BoardService {
     private final BoardRepository boardRepository;
 
-    public Page<BoardEntity> list(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+    public Page<BoardEntity> list(PagingDto pagingDto) {
+        Pageable pageable = PageRequest.of(pagingDto.getPage(), pagingDto.getSize());
         return boardRepository.findAll(pageable);
     }
 

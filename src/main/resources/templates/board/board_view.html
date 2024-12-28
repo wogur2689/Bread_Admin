@@ -4,30 +4,23 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/common/layout/default_layout}">
 <th:block layout:fragment="content">
-    <h1>상품 관리</h1>
-    <div class="container pt-4 mw-100">
-        <table class="table">
-            <thead class="thead-light">
-            <tr class="text-center">
-                <th scope="col" style="width: 300px">상품명</th>
-                <th scope="col" style="width: 110px">가격</th>
-                <th scope="col" style="width: 180px">수정일</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr class="text-center">
-                <th scope="row">
-                    <span th:text="${response.name}"></span>
-                </th>
-                <td>
-                    <span th:text="${response.price} + '원'"></span>
-                </td>
-                <td>
-                    <span th:text="${response.updatedAt}"></span>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="post-view">
+        <h2 class="post-title">Post Title</h2>
+        <div class="post-meta">
+            <span class="post-author">Author: John Doe</span>
+            <span class="post-date">Date: 2024-12-28</span>
+        </div>
+        <div class="post-content">
+            <p>
+                This is the content of the post. It can include multiple paragraphs, text formatting, or even inline
+                images and other media. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.
+                Praesent libero. Sed cursus ante dapibus diam.
+            </p>
+        </div>
+        <div class="post-actions">
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
+        </div>
     </div>
 </th:block>
 </html>

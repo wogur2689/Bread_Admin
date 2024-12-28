@@ -24,12 +24,11 @@ public class BoardController {
 
     @GetMapping("/boardList")
     public ModelAndView list(ModelAndView mav, @ModelAttribute PagingDto pagingDto) {
-        int page = (pagingDto.page() != null && pagingDto.page() > 0) ? pagingDto.page() - 1 : 0;
-        int size = (pagingDto.size() != null && pagingDto.size() > 0) ? pagingDto.size() : 10;
-        Page<BoardEntity> response = boardService.list(page, size);
+        Page<BoardEntity> response = boardService.list(pagingDto);
 
         mav.addObject("response", response);
-        mav.addObject("currentPage", page + 1);
+        log.info("resposne {}", response.getContent());
+        mav.addObject("currentPage", pagingDto.getPage() + 1);
         mav.addObject("totalPages", response.getTotalPages());
         mav.setViewName("board/board_list");
         return mav;
