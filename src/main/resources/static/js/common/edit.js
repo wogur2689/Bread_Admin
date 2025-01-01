@@ -16,25 +16,27 @@ const quill = new Quill('#editor-container', {
 //전송 버튼 클릭시 vaildtion 체크 후 api 호출
 document.getElementById('submit-btn').addEventListener('click', function (event) {
     event.preventDefault();
-    const url = document.getElementById('url').value; //url
-    const title = document.getElementById('title').value; //제목
-    const author = document.getElementById('author').value; //작성자
-    const content = quill.root.innerHTML; //Quill editor에 입력된 HTML 값
+    const id = document.getElementById('id').value;                 //id
+    const url = document.getElementById('url').value;               //url
+    const subject = document.getElementById('subject').value;       //제목
+    const contents = quill.root.innerHTML;                             //Quill editor에 입력된 HTML 값
 
-    if (!title || !author || !content.trim()) {
-        alert('제목, 작성자, 내용을 입력해주세요');
+    if (!subject || !contents.trim()) {
+        alert('제목, 내용을 입력해주세요');
         return;
     }
 
     // Simulate form submission
     const params = {
-        title,
-        author,
-        content
+        id,
+        subject,
+        contents
     };
 
     const res = fnCommonPostCall(url, params);
     if(res == 9999) {
         alert('시스템 에러');
+        return;
     }
+    alert('게시글이 등록되었습니다.');
 });

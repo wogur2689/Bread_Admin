@@ -1,14 +1,13 @@
 package com.example.bread.common.dto;
 
-import lombok.Getter;
+import lombok.*;
 
 @Getter
 public class PagingDto {
-    private Integer page;   //page
-    private Integer size;   //size
-
+    private int page; //page
+    private int size;
     public PagingDto() {
-        page = 5;
-        size = 5;
+        this.page = 1;
+        this.size = 10;
     }
 }

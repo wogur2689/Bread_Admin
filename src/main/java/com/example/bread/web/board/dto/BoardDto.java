@@ -8,8 +8,6 @@ import java.time.LocalDateTime;
 public record BoardDto(
         Long id,
         String subject,
-        String contents,
-        LocalDateTime createdAt,
-        LocalDateTime createdBy
+        String contents
 )
 {}

@@ -19,12 +19,11 @@
 
         // 쿼리 스트링 파라미터 셋팅
         function setQueryStringParams() {
-
             if ( !location.search ) {
                 return false;
             }
 
-            const form = document.querySelector('.form-flex');
+            const form = document.querySelector('.community');
 
             new URLSearchParams(location.search).forEach((value, key) => {
                 if (form[key]) {
@@ -34,8 +33,8 @@
         }
 
         function findAllList() {
-            // 1. noticeList.list에 해당하는 행(tr)의 개수를 가져옵니다.
-            const rowCount = document.querySelectorAll('.ui-table tbody tr').length;
+            // 1. list에 해당하는 행(tr)의 개수를 가져옵니다.
+            const rowCount = document.querySelectorAll('.post-list tbody tr').length;
 
             // 2. 결과가 없는 경우 colspan 값을 동적으로 계산하여 설정합니다.
             if (rowCount === 0) {
@@ -43,10 +42,10 @@
             }
 
             // 3. PagingResponse의 멤버인 pagination을 의미
-            const pagination = [[ ${response.pagination} ]];
+            const pagination = [[ ${response} ]];
 
-            // 4. @ModelAttribute를 이용해서 뷰(HTML)로 전달한 SearchVo 타입의 객체인 params를 의미
-            const params = [[ ${params} ]];
+            // 4. @ModelAttribute를 이용해서 뷰(HTML)로 전달한 dto 타입의 객체인 Paging를 의미
+            const params = [[ ${response} ]];
 
             // 5. 페이지 번호 렌더링
             drawPage(pagination, params);
@@ -55,53 +54,53 @@
         // 페이지 HTML draw
         function drawPage(pagination, params) {
             // 1. 필수 파라미터가 없는 경우, 페이지 번호(페이지네이션) HTML을 제거(초기화)한 후 로직 종료
-            if ( !pagination || !params ) {
-                document.querySelector('.pagination-list').innerHTML = '';
-                throw new Error('Missing required parameters...');
-            }
-            // 2. 렌더링 할 HTML을 저장할 변수
-            let html = '';
-            // 3. 이전 페이지가 있는 경우, 즉 시작 페이지(startPage)가 1이 아닌 경우 첫 페이지 버튼과 이전 페이지 버튼을 HTML에 추가
-            if (pagination.existPrevPage) {
-                html += `
-                            <li class="pagination-item">
-                                <button type="button" class="pagination-button pagination-link-frist" onclick="movePage(1)">
-                                    <span class="for-a11y">처음으로</span>
-                                </button>
-                            </li>
-                            <li class="pagination-item">
-                                <button type="button" class="pagination-button pagination-link-prev" onclick="movePage(${pagination.startPage - 1})">
-                                    <span class="for-a11y">이전</span>
-                                </button>
-                            </li>
-                        `;
-            }
-            /*
-             * 4. 시작 페이지(startPage)와 끝 페이지(endPage) 사이의 페이지 번호(i)를 넘버링 하는 로직
-             *    페이지 번호(i)와 현재 페이지 번호(params.page)가 동일한 경우, 페이지 번호(i)를 활성화(on) 처리
-             */
-            for (let i = pagination.startPage; i <= pagination.endPage; i++) {
-                html += (i !== params.page)
-                    ? `<li class="pagination-item"><a href="javascript:void(0);" class="pagination-link" onclick="movePage(${i});">${i}</a></li>`
-                    : `<li class="pagination-item"><a href="javascript:void(0);" class="pagination-link is-active">${i}</a></li>`
-            }
-            // 5. 현재 위치한 페이지 뒤에 데이터가 더 있는 경우, 다음 페이지 버튼과 끝 페이지 버튼을 HTML에 추가
-            if (pagination.existNextPage) {
-                html += `
-                            <li class="pagination-item">
-                                <button type="button" class="pagination-button pagination-link-next" onclick="movePage(${pagination.endPage + 1})">
-                                    <span class="for-a11y">다음</span>
-                                </button>
-                            </li>
-                            <li class="pagination-item">
-                                <button type="button" class="pagination-button pagination-link-last" onclick="movePage(${pagination.totalPageCount})">
-                                    <span class="for-a11y">마지막으로</span>
-                                </button>
-                            </li>
-                        `;
-            }
+            // if ( !pagination || !params ) {
+            //     document.querySelector('.pagination-list').innerHTML = '';
+            //     throw new Error('Missing required parameters...');
+            // }
+            // // 2. 렌더링 할 HTML을 저장할 변수
+            // let html = '';
+            // // 3. 이전 페이지가 있는 경우, 즉 시작 페이지(startPage)가 1이 아닌 경우 첫 페이지 버튼과 이전 페이지 버튼을 HTML에 추가
+            // if (pagination.existPrevPage) {
+            //     html += `
+            //                 <li class="pagination-item">
+            //                     <button type="button" class="pagination-button pagination-link-frist" onclick="movePage(1)">
+            //                         <span class="for-a11y">처음으로</span>
+            //                     </button>
+            //                 </li>
+            //                 <li class="pagination-item">
+            //                     <button type="button" class="pagination-button pagination-link-prev" onclick="movePage(${pagination.startPage - 1})">
+            //                         <span class="for-a11y">이전</span>
+            //                     </button>
+            //                 </li>
+            //             `;
+            // }
+            // /*
+            //  * 4. 시작 페이지(startPage)와 끝 페이지(endPage) 사이의 페이지 번호(i)를 넘버링 하는 로직
+            //  *    페이지 번호(i)와 현재 페이지 번호(params.page)가 동일한 경우, 페이지 번호(i)를 활성화(on) 처리
+            //  */
+            // for (let i = pagination.startPage; i <= pagination.endPage; i++) {
+            //     html += (i !== params.page)
+            //         ? `<li class="pagination-item"><a href="javascript:void(0);" class="pagination-link" onclick="movePage(${i});">${i}</a></li>`
+            //         : `<li class="pagination-item"><a href="javascript:void(0);" class="pagination-link is-active">${i}</a></li>`
+            // }
+            // // 5. 현재 위치한 페이지 뒤에 데이터가 더 있는 경우, 다음 페이지 버튼과 끝 페이지 버튼을 HTML에 추가
+            // if (pagination.existNextPage) {
+            //     html += `
+            //                 <li class="pagination-item">
+            //                     <button type="button" class="pagination-button pagination-link-next" onclick="movePage(${pagination.endPage + 1})">
+            //                         <span class="for-a11y">다음</span>
+            //                     </button>
+            //                 </li>
+            //                 <li class="pagination-item">
+            //                     <button type="button" class="pagination-button pagination-link-last" onclick="movePage(${pagination.totalPageCount})">
+            //                         <span class="for-a11y">마지막으로</span>
+            //                     </button>
+            //                 </li>
+            //             `;
+            // }
             // 6. class가 "paging"인 요소를 찾아 HTML을 렌더링
-            document.querySelector('.pagination-list').innerHTML = html;
+            // document.querySelector('.pagination-list').innerHTML = html;
         }
 
         // 페이지 이동

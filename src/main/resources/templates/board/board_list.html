@@ -39,9 +39,9 @@
             <tbody>
             <tr th:each="data : ${response.content}">
                 <td th:text="${data.id}"></td>
-                <td th:text="${data.title}"></td>
-                <td th:text="${data.createDt}"></td>
-                <td th:text="${data.createAt}"></td>
+                <td th:text="${data.subject}"></td>
+                <td th:text="${data.createdAt}"></td>
+                <td th:text="${data.createdBy}"></td>
             </tr>
             <!-- Add more rows as needed -->
             </tbody>
@@ -51,13 +51,13 @@
         <div class="pagination" th:if="${totalPages > 0}">
             <!-- 이전 버튼 -->
             <button th:if="${currentPage > 1}"
-                    th:onclick="|location.href='?page=${currentPage - 2}&size=${response.size}'|">
+                    th:onclick="|location.href='?page=${#numbers.max(0, currentPage - 1)}&size=${response.size}'|">
                 &laquo;
             </button>
 
             <!-- 페이지 번호 -->
             <button th:each="i : ${#numbers.sequence(1, totalPages)}"
-                    th:classappend="${i == currentPage} ? 'active'"
+                    th:classappend="${i == (currentPage + 1)} ? 'active'"
                     th:onclick="|location.href='?page=${i - 1}&size=${response.size}'|"
                     th:text="${i}">
             </button>

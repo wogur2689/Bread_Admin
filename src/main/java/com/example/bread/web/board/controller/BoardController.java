@@ -23,12 +23,12 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/boardList")
-    public ModelAndView list(ModelAndView mav, @ModelAttribute PagingDto pagingDto) {
+    public ModelAndView list(ModelAndView mav, @ModelAttribute("pagingDto") PagingDto pagingDto) {
+        //PagingDto가 null 경우 기본값 세팅
         Page<BoardEntity> response = boardService.list(pagingDto);
 
         mav.addObject("response", response);
-        log.info("resposne {}", response.getContent());
-        mav.addObject("currentPage", pagingDto.getPage() + 1);
+        mav.addObject("currentPage", pagingDto.getPage());
         mav.addObject("totalPages", response.getTotalPages());
         mav.setViewName("board/board_list");
         return mav;
