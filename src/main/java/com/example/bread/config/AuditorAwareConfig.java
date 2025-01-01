@@ -21,10 +21,6 @@ public class AuditorAwareConfig implements AuditorAware<String> {
          * SecurityContext 에서 인증정보를 가져와 주입.
          */
         return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
-                .map(authentication -> {
-                    final Principal loginUser = (Principal) authentication.getPrincipal();
-                    log.info("user : {}", loginUser.getName());
-                    return loginUser.getName();
-                });
+                .map(authentication -> authentication.getPrincipal().toString());
     }
 }
