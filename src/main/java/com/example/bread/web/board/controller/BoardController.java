@@ -1,6 +1,5 @@
 package com.example.bread.web.board.controller;
 
-import com.example.bread.common.dto.PagingDto;
 import com.example.bread.common.util.CommonCode;
 import com.example.bread.web.board.dto.BoardDto;
 import com.example.bread.web.board.entity.BoardEntity;
@@ -23,12 +22,11 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/boardList")
-    public ModelAndView list(ModelAndView mav, @ModelAttribute("pagingDto") PagingDto pagingDto) {
-        //PagingDto가 null 경우 기본값 세팅
-        Page<BoardEntity> response = boardService.list(pagingDto);
+    public ModelAndView list(ModelAndView mav, @RequestParam(defaultValue = "1") int page) {
+        Page<BoardEntity> response = boardService.list(page);
 
         mav.addObject("response", response);
-        mav.addObject("currentPage", pagingDto.getPage());
+        mav.addObject("currentPage", page);
         mav.addObject("totalPages", response.getTotalPages());
         mav.setViewName("board/board_list");
         return mav;
