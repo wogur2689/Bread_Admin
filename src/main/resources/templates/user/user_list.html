@@ -7,7 +7,7 @@
     <div class="community">
         <h1>유저 관리</h1>
         <div class="pb-1">
-            전체 회원 수 : <span th:text="${userList.size}"></span>
+            전체 회원 수 : <span th:text="${response.getSize()}"></span>
         </div>
         <!-- Filter and Search/Create Section -->
         <div class="filter-search">
@@ -40,22 +40,36 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="user : ${userList}">
-                <td th:text="${user.id}"></td>
-                <td th:text="${user.name}"></td>
-                <td th:text="${user.createdAt}"></td>
+            <tr th:each="data : ${response.content}">
+                <td th:text="${data.id}"></td>
+                <td th:text="${data.name}"></td>
+                <td th:text="${data.createdAt}"></td>
             </tr>
             <!-- Add more rows as needed -->
             </tbody>
         </table>
 
         <!-- Pagination -->
-        <div class="pagination">
-            <button>&laquo;</button>
-            <button class="active">1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>&raquo;</button>
+        <!-- Pagination -->
+        <div class="pagination" th:if="${totalPages != null and totalPages > 0}">
+            <!-- 이전 버튼 -->
+            <button th:if="${currentPage > 1}"
+                    th:onclick="|location.href='?page=${currentPage - 1}'|">
+                &laquo;
+            </button>
+
+            <!-- 페이지 번호 -->
+            <button th:each="i : ${#numbers.sequence(1, totalPages)}"
+                    th:classappend="${i == currentPage} ? 'active'"
+                    th:onclick="|location.href='?page=${i}'|"
+                    th:text="${i}">
+            </button>
+
+            <!-- 다음 버튼 -->
+            <button th:if="${currentPage < totalPages}"
+                    th:onclick="|location.href='?page=${currentPage + 1}'|">
+                &raquo;
+            </button>
         </div>
     </div>
 </th:block>
