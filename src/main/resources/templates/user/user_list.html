@@ -34,22 +34,33 @@
         <table class="post-list">
             <thead>
             <tr>
-                <th>번호</th>
-                <th>유저명</th>
-                <th>가입시기</th>
+                <th width="20">번호</th>
+                <th width="50">아이디</th>
+                <th width="50">이름</th>
+                <th width="100">이메일</th>
+                <th width="50">닉네임</th>
+                <th width="80">생년월일</th>
+                <th width="80">전화번호</th>
+                <th width="20">권한</th>
+                <th width="80">가입시기</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="data : ${response.content}">
                 <td th:text="${data.id}"></td>
+                <td th:text="${data.userId}"></td>
                 <td th:text="${data.name}"></td>
-                <td th:text="${data.createdAt}"></td>
+                <td th:text="${data.email}"></td>
+                <td th:text="${data.nickName}"></td>
+                <td th:text="${data.birthDate}"></td>
+                <td th:text="${data.phoneNumber}"></td>
+                <td th:text="${data.role}"></td>
+                <td th:text="${#temporals.format(data.createdAt, 'yyyy-MM-dd')}"></td>
             </tr>
             <!-- Add more rows as needed -->
             </tbody>
         </table>
 
-        <!-- Pagination -->
         <!-- Pagination -->
         <div class="pagination" th:if="${totalPages != null and totalPages > 0}">
             <!-- 이전 버튼 -->

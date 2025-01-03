@@ -197,11 +197,6 @@ footer {
     background-color: #f8f4e3;
 }
 
-.post-list th:nth-child(2),
-.post-list td:nth-child(2) {
-    width: 50%;
-}
-
 .pagination {
     display: flex;
     justify-content: center;
