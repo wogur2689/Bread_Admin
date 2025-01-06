@@ -23,7 +23,7 @@ public class UsersEntity extends TimeEntity {
     @Column(name = "user_id", nullable = false, length = 20)
     private String userId;      //아이디
 
-    @Column(name = "password", nullable = false, length = 20)
+    @Column(name = "password", nullable = false, length = 200)
     private String password;    //비밀번호
 
     @Column(name = "name", nullable = false, length = 20)
