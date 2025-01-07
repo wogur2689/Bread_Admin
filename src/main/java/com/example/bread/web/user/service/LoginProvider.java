@@ -1,5 +1,6 @@
 package com.example.bread.web.user.service;
 
+import com.example.bread.common.util.CommonCode;
 import com.example.bread.web.user.dto.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +38,7 @@ public class LoginProvider implements AuthenticationProvider {
         //3. 비밀번호가 맞는지 틀리는지 확인
         if(!passwordEncoder.matches(password, user.getPassword())) {
             log.error("### login param error userId : {}, password : {}", username, password);
-            throw new BadCredentialsException("### 비밀번호가 틀렸습니다. ###");
+            throw new BadCredentialsException(CommonCode.CODE_1001.getMsg());
         }
 
         //4. 토큰 생성

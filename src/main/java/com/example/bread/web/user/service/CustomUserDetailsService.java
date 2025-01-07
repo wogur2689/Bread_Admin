@@ -1,5 +1,6 @@
 package com.example.bread.web.user.service;
 
+import com.example.bread.common.util.CommonCode;
 import com.example.bread.web.user.dto.CustomUserDetails;
 import com.example.bread.web.user.entiry.UsersEntity;
 import com.example.bread.web.user.repository.UsersRepository;
@@ -27,7 +28,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
         //1. db에서 사용자 검색
         Optional<UsersEntity> userInfo = Optional.ofNullable(usersRepository.findByUserId(userId)
-                .orElseThrow(() -> new UsernameNotFoundException("해당 아이디는 없는 아이디입니다.")));
+                .orElseThrow(() -> new UsernameNotFoundException(CommonCode.CODE_1000.getMsg())));
 
         //2. 유저 권한 생성
         Collection<GrantedAuthority> authority = new ArrayList<>();
