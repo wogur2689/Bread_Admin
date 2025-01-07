@@ -4,6 +4,7 @@ import com.example.bread.common.util.CommonCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -40,7 +41,10 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
             code = CommonCode.CODE_1003.getCode();
         }
 
-        //로그인 화면으로 이동
+        //로그인 화면으로 결과와 같이 이동
+        HttpSession session = request.getSession(false);
+        session.setAttribute("code", code);
+        session.setAttribute("msg", CommonCode.getMessage(code));
         response.sendRedirect("/login");
     }
 }
