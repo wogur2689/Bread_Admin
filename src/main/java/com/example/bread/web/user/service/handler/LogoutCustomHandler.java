@@ -1,6 +1,5 @@
 package com.example.bread.web.user.service.handler;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -20,8 +19,7 @@ public class LogoutCustomHandler implements LogoutHandler, LogoutSuccessHandler 
     }
 
     @Override
-    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        log.info("### logout success ###");
+    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         response.sendRedirect("/login"); //로그아웃 성공 후 로그인 화면으로 이동
     }
 }
