@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/common/layout/default_layout}">
+<th:block layout:fragment="content">
+    <div class="post-form">
+        <h2>상품 수집</h2>
+        <!-- Submit Button -->
+        <div class="form-actions">
+            <button type="button" class="submit-btn" onclick="fnCommonPostCall('/api/collect/parisData', null)">수집하기</button>
+        </div>
+    </div>
+    <script src="/js/common/edit.js"></script>
+    <script src="/js/common/commonApi.js"></script>
+</th:block>
+</html>

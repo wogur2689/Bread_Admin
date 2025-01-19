@@ -1,37 +1,40 @@
 function fnCommonPostCall(url, data) {
-    let res;
-    $.ajax({
-        type: 'POST',
-        async: false,
-        url: url,
-        dataType: 'json',
-        data: data,
-        success: function (response) {
-            res = response.data;
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
         },
-        error: function (error) {
-            console.error('API 호출 실패', error);
-            res = '9999';
-        }
-    });
-    return res;
+        body: JSON.stringify(data),
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('API 호출 실패');
+            }
+            return response.json();
+        })
+        .then(data => data)
+        .catch(error => {
+            console.error(error);
+            return '9999';
+        });
 }
 
 function fnCommonGetCall(url, data) {
-    let res;
-    $.ajax({
-        type: 'GET',
-        async: false,
-        url: url,
-        dataType: 'json',
-        data: data,
-        success: function (response) {
-            res = response.data;
-        },
-        error: function (error) {
-            console.error('API 호출 실패', error);
-            res = '9999';
+    return fetch(url + '?' + new URLSearchParams(data), {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
         }
-    });
-    return res;
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('API 호출 실패');
+            }
+            return response.json();
+        })
+        .then(data => data)
+        .catch(error => {
+            console.error(error);
+            return '9999';
+        });
 }

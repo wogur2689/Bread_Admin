@@ -34,7 +34,7 @@ document.getElementById('submit-btn').addEventListener('click', function (event)
     };
 
     const res = fnCommonPostCall(url, params);
-    if(res == 9999) {
+    if(res === '9999') {
         alert('시스템 에러');
         return;
     }
