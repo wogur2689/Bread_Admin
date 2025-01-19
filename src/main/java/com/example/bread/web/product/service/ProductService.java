@@ -6,10 +6,12 @@ import com.example.bread.web.product.entity.ProductEntity;
 import com.example.bread.web.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Slf4j
 @Service
@@ -18,10 +20,13 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public List<ProductEntity> list() {
-        return productRepository.findAll();
+    @Transactional(readOnly = true)
+    public Page<ProductEntity> list(int page) {
+        Pageable pageable = PageRequest.of(page - 1, 10, Sort.by(Sort.Direction.DESC, "createdAt"));
+        return productRepository.findAll(pageable);
     }
 
+    @Transactional(readOnly = true)
     public ProductEntity view(Long id) {
         return productRepository.findById(id).orElseThrow();
     }

@@ -4,35 +4,72 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/common/layout/default_layout}">
 <th:block layout:fragment="content">
-    <h1>상품 관리</h1>
-    <div class="container pt-4 mw-100">
-        <div class="pb-1">
-            전체 상품 수 : <span th:text="${response.size}"></span>
+    <div class="community">
+        <!-- Filter and Search/Create Section -->
+        <div class="filter-search">
+            <div class="filter">
+                <label for="start-date">시작일</label>
+                <input type="date" id="start-date" />
+                <label for="end-date">종료일</label>
+                <input type="date" id="end-date" />
+                <label for="post-count">상품 갯수:</label>
+                <select id="post-count">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
+            <div class="search-create">
+                <input type="text" placeholder="키워드" />
+                <button class="create-btn">검색</button>
+                <button class="create-btn" onclick="fnPageMove('/product/productWrite')">등록하기</button>
+            </div>
         </div>
-        <table class="table">
-            <thead class="thead-light">
-            <tr class="text-center">
-                <th scope="col" style="width: 110px">번호</th>
-                <th scope="col" style="width: 300px">상품명</th>
-                <th scope="col" style="width: 180px">수정일</th>
+
+        <!-- Posts Table -->
+        <table class="post-list">
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
             </tr>
             </thead>
             <tbody>
-            <tr class="text-center" th:each="data : ${response}">
-                <th scope="row">
-                    <span th:text="${data.id}"></span>
-                </th>
-                <td>
-                    <a class="post-link" th:href="@{'/board/view/' + ${data.id}}">
-                        <span th:text="${data.name}"></span>
-                    </a>
-                </td>
-                <td>
-                    <span th:text="${data.updatedAt}"></span>
-                </td>
+            <tr th:each="data : ${response.content}">
+                <td th:text="${data.id}"></td>
+                <td th:text="${data.subject}"></td>
+                <td th:text="${data.createdBy}"></td>
+                <td th:text="${data.createdAt}"></td>
+            </tr>
+            <tr th:if="${response.content eq null}">
+                <td colspan="4">등록된 상품이 없습니다.</td>
             </tr>
             </tbody>
         </table>
+
+        <!-- Pagination -->
+        <div class="pagination" th:if="${totalPages != null and totalPages > 0}">
+            <!-- 이전 버튼 -->
+            <button th:if="${currentPage > 1}"
+                    th:onclick="|location.href='?page=${currentPage - 1}'|">
+                &laquo;
+            </button>
+
+            <!-- 페이지 번호 -->
+            <button th:each="i : ${#numbers.sequence(1, totalPages)}"
+                    th:classappend="${i == currentPage} ? 'active'"
+                    th:onclick="|location.href='?page=${i}'|"
+                    th:text="${i}">
+            </button>
+
+            <!-- 다음 버튼 -->
+            <button th:if="${currentPage < totalPages}"
+                    th:onclick="|location.href='?page=${currentPage + 1}'|">
+                &raquo;
+            </button>
+        </div>
     </div>
 </th:block>
 </html>
