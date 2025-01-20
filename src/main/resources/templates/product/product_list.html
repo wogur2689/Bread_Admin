@@ -23,6 +23,7 @@
                 <input type="text" placeholder="키워드" />
                 <button class="create-btn">검색</button>
                 <button class="create-btn" onclick="fnPageMove('/product/productWrite')">등록하기</button>
+                <button class="create-btn" onclick="fnPageMove('/product/productCollection')">수집하기</button>
             </div>
         </div>
 
@@ -31,7 +32,7 @@
             <thead>
             <tr>
                 <th>번호</th>
-                <th>제목</th>
+                <th>빵이름</th>
                 <th>작성자</th>
                 <th>작성일</th>
             </tr>
@@ -39,7 +40,7 @@
             <tbody>
             <tr th:each="data : ${response.content}">
                 <td th:text="${data.id}"></td>
-                <td th:text="${data.subject}"></td>
+                <td th:text="${data.name}"></td>
                 <td th:text="${data.createdBy}"></td>
                 <td th:text="${data.createdAt}"></td>
             </tr>

@@ -54,6 +54,12 @@ public class ProductController {
         return mav;
     }
 
+    @GetMapping("/productCollection")
+    public ModelAndView collection(ModelAndView mav) {
+        mav.setViewName("product/product_collection");
+        return mav;
+    }
+
     @PostMapping("/api/{svc}")
     public ModelAndView productApi(@PathVariable String svc, ProductDto productDto, ModelAndView mav) {
         String code = svcSwitch(svc, productDto);
