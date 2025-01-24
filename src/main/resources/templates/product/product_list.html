@@ -4,51 +4,58 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/common/layout/default_layout}">
 <th:block layout:fragment="content">
-    <div class="community">
-        <!-- Filter and Search/Create Section -->
-        <div class="filter-search">
-            <div class="filter">
-                <label for="start-date">시작일</label>
-                <input type="date" id="start-date" />
-                <label for="end-date">종료일</label>
-                <input type="date" id="end-date" />
-                <label for="post-count">상품 갯수:</label>
-                <select id="post-count">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                </select>
+    <div class="board-container">
+        <h2 class="board-title">Community Board</h2>
+        <!-- Filter and Search Section -->
+        <div class="board-actions">
+            <div class="filters">
+                <label>
+                    Start Date:
+                    <input type="date" />
+                </label>
+                <label>
+                    End Date:
+                    <input type="date" />
+                </label>
+                <label>
+                    Posts per Page:
+                    <select>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </label>
             </div>
-            <div class="search-create">
-                <input type="text" placeholder="키워드" />
-                <button class="create-btn">검색</button>
-                <button class="create-btn" onclick="fnPageMove('/product/productWrite')">등록하기</button>
-                <button class="create-btn" onclick="fnPageMove('/product/productCollection')">수집하기</button>
+            <div class="search-and-create">
+                <input type="text" placeholder="Search posts..." />
+                <button class="create-btn">Write Post</button>
             </div>
         </div>
 
-        <!-- Posts Table -->
-        <table class="post-list">
-            <thead>
-            <tr>
-                <th>번호</th>
-                <th>빵이름</th>
-                <th>작성자</th>
-                <th>작성일</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="data : ${response.content}">
-                <td th:text="${data.id}"></td>
-                <td th:text="${data.name}"></td>
-                <td th:text="${data.createdBy}"></td>
-                <td th:text="${data.createdAt}"></td>
-            </tr>
-            <tr th:if="${response.content eq null}">
-                <td colspan="4">등록된 상품이 없습니다.</td>
-            </tr>
-            </tbody>
-        </table>
+        <!-- Board Grid -->
+        <div class="board-grid">
+            <!-- Sample Cards -->
+            <div class="board-card">
+                <img src="https://via.placeholder.com/300x180" alt="Post Image" class="post-image" />
+                <h3 class="post-title">Post Title 1</h3>
+                <p class="post-author">Author: John Doe</p>
+                <p class="post-date">Date: 2025-01-24</p>
+                <p class="post-content">
+                    This is a brief preview of the content. Click to read more!
+                </p>
+            </div>
+            <div class="board-card">
+                <img src="https://via.placeholder.com/300x180" alt="Post Image" class="post-image" />
+                <h3 class="post-title">Post Title 2</h3>
+                <p class="post-author">Author: Jane Smith</p>
+                <p class="post-date">Date: 2025-01-23</p>
+                <p class="post-content">
+                    This is another post preview. Interesting content ahead!
+                </p>
+            </div>
+            <!-- Add more cards dynamically here -->
+        </div>
+
 
         <!-- Pagination -->
         <div class="pagination" th:if="${totalPages != null and totalPages > 0}">
