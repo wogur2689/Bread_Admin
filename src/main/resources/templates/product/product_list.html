@@ -35,25 +35,11 @@
         <!-- Board Grid -->
         <div class="board-grid">
             <!-- Sample Cards -->
-            <div class="board-card">
-                <img src="https://via.placeholder.com/300x180" alt="Post Image" class="post-image" />
-                <h3 class="post-title">Post Title 1</h3>
-                <p class="post-author">Author: John Doe</p>
-                <p class="post-date">Date: 2025-01-24</p>
-                <p class="post-content">
-                    This is a brief preview of the content. Click to read more!
-                </p>
+            <div class="board-card" th:each="data : ${response}">
+                <img th:src="${data.imageUrl}" alt="Post Image" class="post-image" />
+                <h3 class="post-title" th:text="${data.name}"></h3>
+                <p class="post-content"><b th:text="가격 + ${data.price} + 원"></b></p>
             </div>
-            <div class="board-card">
-                <img src="https://via.placeholder.com/300x180" alt="Post Image" class="post-image" />
-                <h3 class="post-title">Post Title 2</h3>
-                <p class="post-author">Author: Jane Smith</p>
-                <p class="post-date">Date: 2025-01-23</p>
-                <p class="post-content">
-                    This is another post preview. Interesting content ahead!
-                </p>
-            </div>
-            <!-- Add more cards dynamically here -->
         </div>
 
 

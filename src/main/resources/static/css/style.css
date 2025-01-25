@@ -255,6 +255,10 @@ footer {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+.post-image {
+    width: 280px;
+    height: 200px;
+}
 .post-title {
     font-size: 18px;
     margin-bottom: 10px;
