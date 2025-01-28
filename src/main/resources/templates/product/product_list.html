@@ -5,30 +5,26 @@
       layout:decorate="~{/common/layout/default_layout}">
 <th:block layout:fragment="content">
     <div class="board-container">
-        <h2 class="board-title">Community Board</h2>
+        <h2 class="board-title">상품 관리</h2>
         <!-- Filter and Search Section -->
-        <div class="board-actions">
-            <div class="filters">
-                <label>
-                    Start Date:
-                    <input type="date" />
-                </label>
-                <label>
-                    End Date:
-                    <input type="date" />
-                </label>
-                <label>
-                    Posts per Page:
-                    <select>
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                    </select>
-                </label>
+        <div class="filter-search">
+            <div class="filter">
+                <label for="start-date">시작일</label>
+                <input type="date" id="start-date" />
+                <label for="end-date">종료일</label>
+                <input type="date" id="end-date" />
+                <label for="post-count">글 갯수:</label>
+                <select id="post-count">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                </select>
             </div>
-            <div class="search-and-create">
-                <input type="text" placeholder="Search posts..." />
-                <button class="create-btn">Write Post</button>
+            <div class="search-create">
+                <input type="text" placeholder="키워드" />
+                <button class="create-btn" onclick="fnCommonPostCall('/api/collect/parisData', null)">상품수집</button>
+                <button class="create-btn">검색</button>
+                <button class="writer-btn" onclick="fnPageMove('/product/productCollection')">등록하기</button>
             </div>
         </div>
 
@@ -38,7 +34,7 @@
             <div class="board-card" th:each="data : ${response}">
                 <img th:src="${data.imageUrl}" alt="Post Image" class="post-image" />
                 <h3 class="post-title" th:text="${data.name}"></h3>
-                <p class="post-content"><b th:text="가격 + ${data.price} + 원"></b></p>
+                <p class="post-price"><b th:text="'가격 : ' + ${data.price} + ' 원'"></b></p>
             </div>
         </div>
 
@@ -65,5 +61,6 @@
             </button>
         </div>
     </div>
+    <script src="/js/common/commonApi.js"></script>
 </th:block>
 </html>

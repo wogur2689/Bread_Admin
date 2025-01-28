@@ -5,6 +5,7 @@
       layout:decorate="~{/common/layout/default_layout}">
 <th:block layout:fragment="content">
     <div class="community">
+        <h2 class="board-title">관리자 커뮤니티</h2>
         <!-- Filter and Search/Create Section -->
         <div class="filter-search">
             <div class="filter">
@@ -22,7 +23,7 @@
             <div class="search-create">
                 <input type="text" placeholder="키워드" />
                 <button class="create-btn">검색</button>
-                <button class="create-btn" onclick="fnPageMove('/board/boardWrite')">등록하기</button>
+                <button class="writer-btn" onclick="fnPageMove('/board/boardWrite')">등록하기</button>
             </div>
         </div>
 
