@@ -21,13 +21,13 @@ public class ApiUtil {
      * 공통 결과 리턴형식(메세지, 코드)
      */
     public static CommonDto commonReturn(String code, String msg) {
-        return CommonDto.builder().code(code).msg(msg).build();
+        return new CommonDto(code, msg, null);
     }
 
     /**
      * 공통 결과 리턴형식(메세지, 코드, 내용)
      */
     public static CommonDto commonDataReturn(Object data, String code, String msg) {
-        return CommonDto.builder().code(code).msg(msg).data(data).build();
+        return new CommonDto(code, msg, msg);
     }
 }
