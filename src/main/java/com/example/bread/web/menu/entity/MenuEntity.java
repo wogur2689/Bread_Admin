@@ -21,7 +21,7 @@ public class MenuEntity extends TimeEntity {
     private Long id;
 
     @Column(name = "menu_name", nullable = false, length = 50)
-    private String menuMame;        //메뉴명
+    private String menuName;        //메뉴명
 
     @Column(name = "menu_url", nullable = false)
     private String menuUrl;         //메뉴 url
@@ -31,7 +31,7 @@ public class MenuEntity extends TimeEntity {
 
     public static MenuEntity toEntity(MenuDto menuDto) {
         return MenuEntity.builder()
-                .menuMame(menuDto.menuMame())
+                .menuName(menuDto.menuName())
                 .menuUrl(menuDto.menuUrl())
                 .menuRole(menuDto.menuRole())
                 .build();
