@@ -1,8 +1,5 @@
 package com.example.bread.web.product.dto;
 
-import lombok.*;
-
-@Builder
 public record ProductDto (
     Long id,
     String name,        //상품명
