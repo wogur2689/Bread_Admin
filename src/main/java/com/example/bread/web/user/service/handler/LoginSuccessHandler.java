@@ -29,7 +29,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
             //3. 유저 정보 세팅
             LoginDto loginDto = LoginDto.builder()
                     .userId(userId)
-                    .role(Role.USER.getRole())
+                    .role(Role.USER.name())
                     .build();
 
             //4. 유저정보 세션에 저장 후 세션 지속시간 설정(60분)

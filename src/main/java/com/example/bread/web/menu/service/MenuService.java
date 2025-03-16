@@ -21,8 +21,19 @@ public class MenuService {
     private final MenuRepository menuRepository;
 
     public List<MenuEntity> list() {
-        return menuRepository.findAll();
+        List<MenuEntity> rootMenus = menuRepository.findByParent(null); // 최상위 메뉴(GNB) 조회
+        rootMenus.forEach(this::loadChildren); // 재귀적으로 자식 메뉴 로드
+        return rootMenus;
     }
+
+    private void loadChildren(MenuEntity menu) {
+        List<MenuEntity> children = menuRepository.findByParent(menu);
+        if (!children.isEmpty()) {
+            menu.addChildren(children); // 🔥 커스텀 메서드 활용
+            children.forEach(this::loadChildren);
+        }
+    }
+
     public MenuEntity view(Long id) {
         return menuRepository.findById(id).orElseThrow();
     }

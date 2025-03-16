@@ -32,7 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         //2. 유저 권한 생성
         Collection<GrantedAuthority> authority = new ArrayList<>();
-        authority.add(new SimpleGrantedAuthority(Role.USER.getRole()));
+        authority.add(new SimpleGrantedAuthority(Role.USER.name()));
 
         //3. UserDetails에 저장
         return CustomUserDetails.builder()
