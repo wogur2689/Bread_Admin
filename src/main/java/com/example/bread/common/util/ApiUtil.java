@@ -20,14 +20,14 @@ public class ApiUtil {
     /**
      * 공통 결과 리턴형식(메세지, 코드)
      */
-    public static CommonDto commonReturn(String code, String msg) {
-        return new CommonDto(code, msg, null);
+    public static CommonDto<?> commonReturn(String code, String msg) {
+        return new CommonDto<>(code, msg, null);
     }
 
     /**
      * 공통 결과 리턴형식(메세지, 코드, 내용)
      */
-    public static CommonDto commonDataReturn(Object data, String code, String msg) {
-        return new CommonDto(code, msg, msg);
+    public static CommonDto<Object> commonDataReturn(Object data, String code, String msg) {
+        return new CommonDto<>(code, msg, data);
     }
 }
