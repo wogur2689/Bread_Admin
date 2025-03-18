@@ -3,69 +3,118 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/common/layout/default_layout}">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/themes/default/style.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/jstree.min.js"></script>
+    <style>
+        #menu {display: flex; align-items: center; justify-content: center;}
+        #menu-container { margin: 70px; }
+        #menu-tree { margin-top: 20px; }
+        #menu-details { margin: 70px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 30px; }
+        th { background-color: #f4f4f4; width: 200px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; width: 500px; }
+    </style>
+</head>
 <th:block layout:fragment="content">
-    <div class="community">
-        <!-- Filter and Search/Create Section -->
-        <div class="filter-search">
-            <div class="filter">
-                <label for="start-date">시작일</label>
-                <input type="date" id="start-date" />
-                <label for="end-date">종료일</label>
-                <input type="date" id="end-date" />
-                <label for="post-count">글 갯수:</label>
-                <select id="post-count">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                </select>
+    <div id="menu">
+        <div id="menu-container">
+            <h2>🍞 베이커리 메뉴 관리</h2>
+            <div className="controls">
+                <button onClick="addMenu()">➕ 메뉴 추가</button>
+                <button onClick="removeMenu()">❌ 메뉴 삭제</button>
             </div>
-            <div class="search-create">
-                <input type="text" placeholder="키워드" />
-                <button class="create-btn">검색</button>
-                <button class="create-btn">등록하기</button>
-            </div>
+            <div id="menu-tree"></div>
         </div>
 
-        <!-- Posts Table -->
-        <table class="post-list">
-            <thead>
-            <tr>
-                <th>번호</th>
-                <th>메뉴명</th>
-                <th>작성자</th>
-                <th>작성일</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>1</td>
-                <td>Welcome to our community!</td>
-                <td>Admin</td>
-                <td>2024-12-01</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>New Bread Recipes</td>
-                <td>JohnDoe</td>
-                <td>2024-12-02</td>
-            </tr>
-            <!-- Add more rows as needed -->
-            </tbody>
-        </table>
-
-        <!-- Pagination -->
-        <div class="pagination">
-            <button>&laquo;</button>
-            <button class="active">1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>&raquo;</button>
+        <div id="menu-details">
+            <h2>📄 메뉴 설명</h2>
+            <table>
+                <tr>
+                    <th>메뉴명</th>
+                    <td id="menu-name">-</td>
+                </tr>
+                <tr>
+                    <th>설명</th>
+                    <td id="menu-desc">-</td>
+                </tr>
+                <tr>
+                    <th>가격</th>
+                    <td id="menu-price">-</td>
+                </tr>
+            </table>
         </div>
     </div>
-    <!-- pagination -->
-    <!--    <div class="paginate">-->
-    <!--        <div class="paginate_list"></div>-->
-    <!--    </div>-->
-    <!-- 페이지네이션 코드-->
-    <!--    <th:block th:replace="~{common/common/pageing :: paginationScript}"></th:block>-->
+
+    <script>
+        var menuData = {
+            "baguette": {name: "바게트", desc: "프랑스식 바삭한 빵", price: "₩3,000"},
+            "croissant": {name: "크루아상", desc: "버터가 들어간 바삭한 빵", price: "₩3,500"},
+            "choco_cake": {name: "초코 케이크", desc: "진한 초콜릿 케이크", price: "₩5,000"},
+            "cheese_cake": {name: "치즈 케이크", desc: "부드러운 치즈 케이크", price: "₩5,500"}
+        };
+
+        $(document).ready(function () {
+            $('#menu-tree').jstree({
+                'core': {
+                    'check_callback': true,
+                    'data': [
+                        {
+                            "id": "bread", "text": "🍞 빵", "children": [
+                                {"id": "baguette", "text": "🥖 바게트"},
+                                {"id": "croissant", "text": "🥐 크루아상"}
+                            ]
+                        },
+                        {
+                            "id": "cake", "text": "🎂 케이크", "children": [
+                                {"id": "choco_cake", "text": "🍫 초코 케이크"},
+                                {"id": "cheese_cake", "text": "🧀 치즈 케이크"}
+                            ]
+                        }
+                    ]
+                }
+            });
+
+            $('#menu-tree').on("select_node.jstree", function (e, data) {
+                var nodeId = data.node.id;
+                if (menuData[nodeId]) {
+                    $("#menu-name").text(menuData[nodeId].name);
+                    $("#menu-desc").text(menuData[nodeId].desc);
+                    $("#menu-price").text(menuData[nodeId].price);
+                } else {
+                    $("#menu-name").text("-");
+                    $("#menu-desc").text("-");
+                    $("#menu-price").text("-");
+                }
+            });
+        });
+
+        function addMenu() {
+            var ref = $('#menu-tree').jstree(true);
+            var selected = ref.get_selected();
+            if (!selected.length) {
+                alert("추가할 위치를 선택하세요!");
+                return;
+            }
+            var newNodeId = 'new' + Math.random().toString(36).substr(2, 5);
+            ref.create_node(selected[0], {"id": newNodeId, "text": "새 메뉴"}, "last");
+            ref.open_node(selected[0]);
+            menuData[newNodeId] = {name: "새 메뉴", desc: "설명을 추가하세요", price: "₩0"};
+        }
+
+        function removeMenu() {
+            var ref = $('#menu-tree').jstree(true);
+            var selected = ref.get_selected();
+            if (!selected.length) {
+                alert("삭제할 메뉴를 선택하세요!");
+                return;
+            }
+            delete menuData[selected[0]];
+            ref.delete_node(selected);
+            $("#menu-name").text("-");
+            $("#menu-desc").text("-");
+            $("#menu-price").text("-");
+        }
+    </script>
 </th:block>
