@@ -22,14 +22,14 @@
         <div id="menu-container">
             <h2>🍞 베이커리 메뉴 관리</h2>
             <div className="controls">
-                <button onClick="addMenu()">➕ 메뉴 추가</button>
-                <button onClick="removeMenu()">❌ 메뉴 삭제</button>
+                <button onClick="addMenu()">메뉴 추가</button>
+                <button onClick="removeMenu()">메뉴 삭제</button>
             </div>
             <div id="menu-tree"></div>
         </div>
 
         <div id="menu-details">
-            <h2>📄 메뉴 설명</h2>
+            <h2>메뉴 설명</h2>
             <table>
                 <tr>
                     <th>메뉴명</th>
@@ -48,7 +48,7 @@
     </div>
 
     <script>
-        var menuData = {
+        let menuData = {
             "baguette": {name: "바게트", desc: "프랑스식 바삭한 빵", price: "₩3,000"},
             "croissant": {name: "크루아상", desc: "버터가 들어간 바삭한 빵", price: "₩3,500"},
             "choco_cake": {name: "초코 케이크", desc: "진한 초콜릿 케이크", price: "₩5,000"},
@@ -61,15 +61,15 @@
                     'check_callback': true,
                     'data': [
                         {
-                            "id": "bread", "text": "🍞 빵", "children": [
-                                {"id": "baguette", "text": "🥖 바게트"},
-                                {"id": "croissant", "text": "🥐 크루아상"}
+                            "id": "bread", "text": "빵", "children": [
+                                {"id": "baguette", "text": " 바게트"},
+                                {"id": "croissant", "text": " 크루아상"}
                             ]
                         },
                         {
-                            "id": "cake", "text": "🎂 케이크", "children": [
-                                {"id": "choco_cake", "text": "🍫 초코 케이크"},
-                                {"id": "cheese_cake", "text": "🧀 치즈 케이크"}
+                            "id": "cake", "text": "케이크", "children": [
+                                {"id": "choco_cake", "text": "초코 케이크"},
+                                {"id": "cheese_cake", "text": "치즈 케이크"}
                             ]
                         }
                     ]
@@ -77,7 +77,7 @@
             });
 
             $('#menu-tree').on("select_node.jstree", function (e, data) {
-                var nodeId = data.node.id;
+                let nodeId = data.node.id;
                 if (menuData[nodeId]) {
                     $("#menu-name").text(menuData[nodeId].name);
                     $("#menu-desc").text(menuData[nodeId].desc);
