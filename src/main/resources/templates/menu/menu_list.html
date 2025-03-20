@@ -8,42 +8,63 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/jstree.min.js"></script>
     <style>
-        #menu {display: flex; align-items: center; justify-content: center;}
-        #menu-container { margin: 70px; }
-        #menu-tree { margin-top: 20px; }
-        #menu-details { margin: 70px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 30px; }
-        th { background-color: #f4f4f4; width: 200px; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; width: 500px; }
+        #menu {width: 100%; display: flex; flex-direction: column; align-items: center;}
+        /* 트리 메뉴 스타일 */
+        #menu-container { width: 80%; margin-top: 5%; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+        #menu-container h2 { text-align: center; color: #795548; }
+        #menu-tree-container {
+            max-height: 300px;  /* 높이 제한 */
+            overflow-y: auto;   /* 스크롤 추가 */
+            border: 1px solid #ddd; /* 테두리 추가 */
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .controls { text-align: center; margin-bottom: 10px; }
+        .controls button {
+            background: #d7a977; color: white; border: none; padding: 8px 12px;
+            margin: 3px; border-radius: 5px; cursor: pointer;
+        }
+        .controls button:hover { background: #b4825e; }
+
+        /* 메뉴 설명 카드 스타일 */
+        #menu-details { width: 80%; margin-top: 5%; transition: opacity 0.5s ease-in-out; }
+        .card {
+            background: white; padding: 20px; border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+        }
+        .card h2 { color: #795548; margin-bottom: 10px; }
+        .menu-info { display: flex; flex-direction: column; gap: 10px; }
+        .menu-info div {
+            background: #f8f1e9; padding: 10px; border-radius: 5px;
+        }
+        .menu-info span { font-weight: bold; }
+
     </style>
 </head>
 <th:block layout:fragment="content">
     <div id="menu">
         <div id="menu-container">
             <h2>🍞 베이커리 메뉴 관리</h2>
-            <div className="controls">
-                <button onClick="addMenu()">메뉴 추가</button>
-                <button onClick="removeMenu()">메뉴 삭제</button>
+            <div class="controls">
+                <button onclick="addMenu()">➕ 메뉴 추가</button>
+                <button onclick="removeMenu()">❌ 메뉴 삭제</button>
             </div>
-            <div id="menu-tree"></div>
+            <div id="menu-tree-container">
+                <div id="menu-tree"></div>
+            </div>
         </div>
 
         <div id="menu-details">
-            <h2>메뉴 설명</h2>
-            <table>
-                <tr>
-                    <th>메뉴명</th>
-                    <td id="menu-name">-</td>
-                </tr>
-                <tr>
-                    <th>설명</th>
-                    <td id="menu-desc">-</td>
-                </tr>
-                <tr>
-                    <th>가격</th>
-                    <td id="menu-price">-</td>
-                </tr>
-            </table>
+            <div class="card">
+                <h2>📄 메뉴 상세 정보</h2>
+                <div class="menu-info">
+                    <div><span>메뉴명:</span> <span id="menu-name">-</span></div>
+                    <div><span>설명:</span> <span id="menu-desc">-</span></div>
+                    <div><span>가격:</span> <span id="menu-price">-</span></div>
+                </div>
+            </div>
         </div>
     </div>
 
