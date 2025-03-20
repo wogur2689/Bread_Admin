@@ -101,6 +101,9 @@
             ref.create_node(selected[0], {"id": newNodeId, "text": "새 메뉴"}, "last");
             ref.open_node(selected[0]);
             menuData[newNodeId] = {name: "새 메뉴", desc: "설명을 추가하세요", price: "₩0"};
+
+            //menu 추가
+            fnCommonPostCall('/menu/api/insert', newNodeId);
         }
 
         function removeMenu() {
@@ -115,6 +118,8 @@
             $("#menu-name").text("-");
             $("#menu-desc").text("-");
             $("#menu-price").text("-");
+            //menu 삭제
+            fnCommonPostCall('/menu/api/delete', selected);
         }
     </script>
 </th:block>
