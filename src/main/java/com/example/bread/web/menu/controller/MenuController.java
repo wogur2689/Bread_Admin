@@ -1,12 +1,15 @@
 package com.example.bread.web.menu.controller;
 
+import com.example.bread.common.exception.CustomException;
 import com.example.bread.common.util.CommonCode;
 import com.example.bread.web.board.dto.BoardDto;
 import com.example.bread.web.menu.dto.MenuDto;
 import com.example.bread.web.menu.service.MenuService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +31,11 @@ public class MenuController {
     }
 
     @PostMapping("/api/{svc}")
-    public ModelAndView boardApi(@PathVariable String svc, MenuDto menuDto, ModelAndView mav) {
+    public ModelAndView boardApi(@Valid @PathVariable String svc, MenuDto menuDto, ModelAndView mav, BindingResult result) {
+        //param 검증
+        if(result.hasErrors()) {
+            throw new CustomException(CommonCode.CODE_9995.getCode(), CommonCode.CODE_9995.getMsg());
+        }
         String code = svcSwitch(svc, menuDto);
         mav.addObject("code", code);
         mav.addObject("msg", CommonCode.getMessage(code));
