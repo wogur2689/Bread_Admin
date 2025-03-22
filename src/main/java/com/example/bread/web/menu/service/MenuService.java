@@ -42,7 +42,7 @@ public class MenuService {
             MenuEntity menu = MenuEntity.toEntity(menuDto);
             menuRepository.save(menu);
         } catch (DataAccessException e) {
-            code = "9999";
+            code = CommonCode.CODE_9998.getCode();
         }
         return code;
     }
@@ -53,7 +53,7 @@ public class MenuService {
             MenuEntity menu = MenuEntity.toEntity(menuDto);
             menuRepository.save(menu);
         } catch (DataAccessException e) {
-            code = "9999";
+            code = CommonCode.CODE_9998.getCode();
         }
         return code;
     }
@@ -64,7 +64,7 @@ public class MenuService {
             MenuEntity menu = MenuEntity.toEntity(menuDto);
             menuRepository.delete(menu);
         } catch (DataAccessException e) {
-            code = "9999";
+            code = CommonCode.CODE_9998.getCode();
         }
         return code;
     }
