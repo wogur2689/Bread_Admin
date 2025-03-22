@@ -27,26 +27,6 @@ public class MenuController {
         return mav;
     }
 
-    @GetMapping("/menuView/{id}")
-    public ModelAndView view(@PathVariable Long id, ModelAndView mav) {
-        mav.addObject("response", menuService.view(id));
-        mav.setViewName("menu/menu_view");
-        return mav;
-    }
-
-    @GetMapping("/menuEdit/{id}")
-    public ModelAndView edit(@PathVariable Long id, ModelAndView mav) {
-        mav.addObject("response", menuService.view(id));
-        mav.setViewName("menu/menu_edit");
-        return mav;
-    }
-
-    @GetMapping("/menuWrite")
-    public ModelAndView menuEdit(ModelAndView mav) {
-        mav.setViewName("menu/menu_write");
-        return mav;
-    }
-
     @PostMapping("/api/{svc}")
     public ModelAndView boardApi(@PathVariable String svc, MenuDto menuDto, ModelAndView mav) {
         String code = svcSwitch(svc, menuDto);
