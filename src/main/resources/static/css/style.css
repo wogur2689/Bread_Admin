@@ -134,9 +134,20 @@ footer {
 .card h2 { color: #795548; margin-bottom: 10px; }
 .menu-info { display: flex; flex-direction: column; gap: 10px; }
 .menu-info div {
-    background: #f8f1e9; padding: 10px; border-radius: 5px;
+    padding: 10px; border-radius: 5px;
 }
 .menu-info span { font-weight: bold; }
+.menu-sub-info {
+    display: flex;
+    padding: 10px;
+    border-radius: 5px;
+    justify-content: space-around;
+}
+.menu-sub-info div {
+    width: 80%;
+    margin-right: 20px;
+    background: #f8f1e9;
+}
 
 /* board */
 .community {

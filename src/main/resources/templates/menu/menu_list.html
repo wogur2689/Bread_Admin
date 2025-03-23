@@ -25,9 +25,17 @@
             <div class="card">
                 <h2>📄 메뉴 상세 정보</h2>
                 <div class="menu-info">
-                    <div><span>메뉴명:</span> <span id="menu-name">-</span></div>
-                    <div><span>설명:</span> <span id="menu-desc">-</span></div>
-                    <div><span>가격:</span> <span id="menu-price">-</span></div>
+                    <div class="menu-sub-info">
+                        <div><span>메뉴명:</span> <span id="menu-name">-</span></div>
+                        <div><span>URL:</span><span id="menu-url">-</span></div>
+                    </div>
+                    <div class="menu-sub-info">
+                        <div><span>표시여부:</span> <span id="menu-visible">-</span></div>
+                        <div><span>권한:</span><span id="menu-role">-</span></div>
+                    </div>
+                    <div class="menu-sub-info">
+                        <div><span>설명</span> <span id="menu-desc">-</span></div>
+                    </div>
                 </div>
                 <div class="controls">
                     <button>메뉴 수정</button>
@@ -37,34 +45,18 @@
     </div>
 
     <script th:inline="javascript">
-        let menuData = {
-            "baguette": {name: "바게트", desc: "프랑스식 바삭한 빵", price: "₩3,000"},
-            "croissant": {name: "크루아상", desc: "버터가 들어간 바삭한 빵", price: "₩3,500"},
-            "choco_cake": {name: "초코 케이크", desc: "진한 초콜릿 케이크", price: "₩5,000"},
-            "cheese_cake": {name: "치즈 케이크", desc: "부드러운 치즈 케이크", price: "₩5,500"}
-        };
+        let menuData = {};
 
         $(document).ready(function () {
-            let data = /*[[${response}]]*/
+            const response = /*[[${response}]]*/;
 
-            console.log(data);
+            let treeData = transformToJSTree(response);
+            console.log(treeData);
+
             $('#menu-tree').jstree({
                 'core': {
                     'check_callback': true,
-                    'data': [
-                        {
-                            "id": "bread", "text": "빵", "children": [
-                                {"id": "baguette", "text": " 바게트"},
-                                {"id": "croissant", "text": " 크루아상"}
-                            ]
-                        },
-                        {
-                            "id": "cake", "text": "케이크", "children": [
-                                {"id": "choco_cake", "text": "초코 케이크"},
-                                {"id": "cheese_cake", "text": "치즈 케이크"}
-                            ]
-                        }
-                    ]
+                    'data': treeData
                 }
             });
 
@@ -72,15 +64,62 @@
                 let nodeId = data.node.id;
                 if (menuData[nodeId]) {
                     $("#menu-name").text(menuData[nodeId].name);
-                    $("#menu-desc").text(menuData[nodeId].desc);
-                    $("#menu-price").text(menuData[nodeId].price);
+                    $("#menu-url").text(menuData[nodeId].url);
+                    $("#menu-visible").text(menuData[nodeId].isVisible);
+                    $("#menu-role").text(menuData[nodeId].role);
+                    // $("#menu-desc").text(menuData[nodeId].desc);
                 } else {
-                    $("#menu-name").text("-");
-                    $("#menu-desc").text("-");
-                    $("#menu-price").text("-");
+                    $("#menu-name").text('-');
+                    $("#menu-url").text('-');
+                    $("#menu-visible").text('-');
+                    $("#menu-role").text('-');
+                    // $("#menu-desc").text('-');
                 }
             });
         });
+
+        function transformToJSTree(response) {
+            let map = new Map();
+
+            // 기본 구조 설정 및 맵에 저장
+            response.forEach(item => {
+                //트리 데이터 세팅
+                map.set(item.id, {
+                    id: item.id.toString(), // id는 문자열이어야 함
+                    text: item.menuName,
+                    menuUrl: item.menuUrl,
+                    menuRole: item.menuRole,
+                    isVisible: item.isVisible,
+                    sortOrder: item.sortOrder,
+                    children: [] // 자식 노드 배열 초기화
+                });
+
+                //설명 데이터 세팅
+                menuData[item.id] = {
+                    name: item.menuName,
+                    url: item.menuUrl,
+                    isVisible: item.isVisible,
+                    role: item.role
+                };
+            });
+
+            let treeData = [];
+
+            // 부모-자식 관계 설정
+            response.forEach(item => {
+                if (item.parent === null) {
+                    // 최상위 메뉴
+                    treeData.push(map.get(item.id));
+                } else {
+                    // 부모가 존재하면 부모의 children 배열에 추가
+                    if (map.has(item.parent)) {
+                        map.get(item.parent).children.push(map.get(item.id));
+                    }
+                }
+            });
+
+            return treeData;
+        }
 
         function addMenu() {
             var ref = $('#menu-tree').jstree(true);

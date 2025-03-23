@@ -53,7 +53,7 @@ public class MenuDto {
                .menuRole(String.valueOf(menu.getMenuRole()))
                .isVisible(menu.getIsVisible())
                .sortOrder(menu.getSortOrder())
-               .parent(menu.getParent().getId())
+               .parent(menu.getParent() != null ? menu.getParent().getId() : null)
                .build();
     }
 }
