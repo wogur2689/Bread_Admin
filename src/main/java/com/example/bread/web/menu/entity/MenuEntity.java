@@ -40,8 +40,8 @@ public class MenuEntity extends TimeEntity {
     @Column(nullable = false)
     private Integer sortOrder = 0;      // 메뉴 정렬 순서
 
-    @Column(nullable = false)
-    private Boolean isVisible = true;   // 메뉴 표시 여부
+    @Column(nullable = false, length = '1', columnDefinition = "N")
+    private String isVisible;           // 메뉴 표시 여부
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -52,11 +52,11 @@ public class MenuEntity extends TimeEntity {
         this.children.addAll(children); // Setter 없이 추가 가능!
     }
 
-    public static MenuEntity toEntity(MenuDto menuDto) {
+    public static MenuEntity toEntity(MenuDto.MenuRequestDto menuDto) {
         return MenuEntity.builder()
-                .menuName(menuDto.menuName())
-                .menuUrl(menuDto.menuUrl())
-                .menuRole(Role.valueOf(menuDto.menuRole()))
+                .menuName(menuDto.getMenuName())
+                .menuUrl(menuDto.getMenuUrl())
+                .menuRole(Role.valueOf(menuDto.getMenuRole()))
                 .build();
     }
 }

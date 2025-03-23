@@ -31,7 +31,7 @@ public class MenuController {
     }
 
     @PostMapping("/api/{svc}")
-    public ModelAndView boardApi(@Valid @PathVariable String svc, MenuDto menuDto, ModelAndView mav, BindingResult result) {
+    public ModelAndView boardApi(@Valid @PathVariable String svc, MenuDto.MenuRequestDto menuDto, ModelAndView mav, BindingResult result) {
         //param 검증
         if(result.hasErrors()) {
             throw new CustomException(CommonCode.CODE_9995.getCode(), CommonCode.CODE_9995.getMsg());
@@ -43,7 +43,7 @@ public class MenuController {
         return mav;
     }
 
-    private String svcSwitch(String svc, MenuDto menuDto) {
+    private String svcSwitch(String svc, MenuDto.MenuRequestDto menuDto) {
         return switch (svc) {
             case "insert" -> menuService.insert(menuDto);
             case "update" -> menuService.update(menuDto);

@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <script>
+    <script th:inline="javascript">
         let menuData = {
             "baguette": {name: "바게트", desc: "프랑스식 바삭한 빵", price: "₩3,000"},
             "croissant": {name: "크루아상", desc: "버터가 들어간 바삭한 빵", price: "₩3,500"},
@@ -45,6 +45,9 @@
         };
 
         $(document).ready(function () {
+            let data = /*[[${response}]]*/
+
+            console.log(data);
             $('#menu-tree').jstree({
                 'core': {
                     'check_callback': true,

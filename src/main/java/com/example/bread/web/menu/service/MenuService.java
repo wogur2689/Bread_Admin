@@ -13,6 +13,7 @@ import org.aspectj.apache.bcel.classfile.Module;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,10 +23,20 @@ import java.util.Optional;
 public class MenuService {
     private final MenuRepository menuRepository;
 
-    public List<MenuEntity> list() {
+    public List<MenuDto.MenuResponseDto> list() {
+        //1. 최상위 메뉴 조회
         List<MenuEntity> rootMenus = menuRepository.findByParent(null); // 최상위 메뉴(GNB) 조회
+
+        //2. 재귀호출을 이용한 자식 메뉴 로드
         rootMenus.forEach(this::loadChildren); // 재귀적으로 자식 메뉴 로드
-        return rootMenus;
+
+        //3. entity -> res
+        List<MenuDto.MenuResponseDto> menuResponseDtos = new ArrayList<>();
+        rootMenus.forEach(t -> {
+            menuResponseDtos.add(MenuDto.toDto(t));
+        });
+
+        return menuResponseDtos;
     }
 
     private void loadChildren(MenuEntity menu) {
@@ -36,7 +47,7 @@ public class MenuService {
         }
     }
 
-    public String insert(MenuDto menuDto) {
+    public String insert(MenuDto.MenuRequestDto menuDto) {
         String code = CommonCode.CODE_0000.getCode();
         try {
             MenuEntity menu = MenuEntity.toEntity(menuDto);
@@ -47,7 +58,7 @@ public class MenuService {
         return code;
     }
 
-    public String update(MenuDto menuDto) {
+    public String update(MenuDto.MenuRequestDto menuDto) {
         String code = CommonCode.CODE_0000.getCode();
         try {
             MenuEntity menu = MenuEntity.toEntity(menuDto);
@@ -58,7 +69,7 @@ public class MenuService {
         return code;
     }
 
-    public String delete(MenuDto menuDto) {
+    public String delete(MenuDto.MenuRequestDto menuDto) {
         String code = CommonCode.CODE_0000.getCode();
         try {
             MenuEntity menu = MenuEntity.toEntity(menuDto);
