@@ -2,27 +2,29 @@ package com.example.bread.web.menu.service;
 
 import com.example.bread.common.exception.CustomException;
 import com.example.bread.common.util.CommonCode;
-import com.example.bread.web.board.dto.BoardDto;
-import com.example.bread.web.board.entity.BoardEntity;
 import com.example.bread.web.menu.dto.MenuDto;
 import com.example.bread.web.menu.entity.MenuEntity;
 import com.example.bread.web.menu.repository.MenuRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.apache.bcel.classfile.Module;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class MenuService {
     private final MenuRepository menuRepository;
+    private final MenuService self; // 자기 자신을 주입하여 트랜잭션 적용
 
+    public MenuService(@Lazy MenuService self, @Lazy MenuRepository menuRepository) { //지연 로딩 사용
+        this.menuRepository = menuRepository;
+        this.self = self;
+    }
+
+    @Transactional(readOnly = true)
     public List<MenuDto.MenuResponseDto> list() {
         //1. 최상위 메뉴 조회
         List<MenuEntity> rootMenus = menuRepository.findByParent(null); // 최상위 메뉴(GNB) 조회
@@ -31,52 +33,78 @@ public class MenuService {
         rootMenus.forEach(this::loadChildren); // 재귀적으로 자식 메뉴 로드
 
         //3. entity -> res
-        List<MenuDto.MenuResponseDto> menuResponseDtos = new ArrayList<>();
-        rootMenus.forEach(t -> {
-            menuResponseDtos.add(MenuDto.toDto(t));
-        });
-
-        return menuResponseDtos;
+        return rootMenus.stream().map(MenuDto::toDto).collect(Collectors.toList());
     }
 
     private void loadChildren(MenuEntity menu) {
         List<MenuEntity> children = menuRepository.findByParent(menu);
         if (!children.isEmpty()) {
-            menu.addChildren(children); // 🔥 커스텀 메서드 활용
+            menu.addChildren(children); //커스텀 메서드 활용
             children.forEach(this::loadChildren);
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public String insert(MenuDto.MenuRequestDto menuDto) {
         String code = CommonCode.CODE_0000.getCode();
         try {
-            MenuEntity menu = MenuEntity.toEntity(menuDto);
+            //1. 부모 메뉴 조회
+            MenuEntity parentMenu = self.getMenu(menuDto.getParentId());
+
+            //2. dto -> entity -> save
+            MenuEntity menu = MenuEntity.toEntity(menuDto, parentMenu);
             menuRepository.save(menu);
         } catch (DataAccessException e) {
-            code = CommonCode.CODE_9998.getCode();
+            throwError(CommonCode.CODE_9998.getCode());
         }
         return code;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public String update(MenuDto.MenuRequestDto menuDto) {
         String code = CommonCode.CODE_0000.getCode();
         try {
-            MenuEntity menu = MenuEntity.toEntity(menuDto);
-            menuRepository.save(menu);
+            //1. 기존 메뉴 조회
+            MenuEntity targetMenu = getMenu(menuDto.getId());
+            if(targetMenu == null) {
+                throwError(CommonCode.CODE_9997.getCode());
+                return code;
+            }
+
+            //2. 변경감지를 이용한 기존데이터 값 수정
+            targetMenu.update(menuDto);
         } catch (DataAccessException e) {
-            code = CommonCode.CODE_9998.getCode();
+            throwError(CommonCode.CODE_9998.getCode());
         }
         return code;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public String delete(MenuDto.MenuRequestDto menuDto) {
         String code = CommonCode.CODE_0000.getCode();
         try {
-            MenuEntity menu = MenuEntity.toEntity(menuDto);
-            menuRepository.delete(menu);
+            //1. 기존 메뉴 조회
+            MenuEntity targetMenu = getMenu(menuDto.getId());
+            if(targetMenu == null) {
+                throwError(CommonCode.CODE_9997.getCode());
+            }
+
+            //2. 기존메뉴를 이용하여 삭제
+            menuRepository.delete(targetMenu);
         } catch (DataAccessException e) {
-            code = CommonCode.CODE_9998.getCode();
+            throwError(CommonCode.CODE_9998.getCode());
         }
         return code;
+    }
+
+    //메뉴 조회
+    @Transactional(readOnly = true)
+    public MenuEntity getMenu(Long id) {
+        return menuRepository.findById(id).orElse(null);
+    }
+
+    //에러처리
+    private void throwError(String code) {
+        throw new CustomException(code, CommonCode.getMessage(code));
     }
 }

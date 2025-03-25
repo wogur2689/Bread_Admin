@@ -37,6 +37,9 @@ public class MenuEntity extends TimeEntity {
     @Column(name = "menu_url", nullable = false, length = 512)
     private String menuUrl;             //메뉴 url
 
+    @Column(name = "menu_desc", length = 200)
+    private String menuDesc;            //메뉴설명
+
     @Column(nullable = false)
     private Integer sortOrder = 0;      // 메뉴 정렬 순서
 
@@ -52,11 +55,26 @@ public class MenuEntity extends TimeEntity {
         this.children.addAll(children); // Setter 없이 추가 가능!
     }
 
-    public static MenuEntity toEntity(MenuDto.MenuRequestDto menuDto) {
+    //변경감지
+    public void update(MenuDto.MenuRequestDto dto) {
+        this.menuName = dto.getMenuName();
+        this.menuUrl = dto.getMenuUrl();
+        this.menuDesc = dto.getMenuDesc();
+        this.sortOrder = dto.getSortOrder();
+        this.isVisible = dto.getIsVisible();
+        this.menuRole = Role.valueOf(dto.getMenuRole());
+    }
+
+    //dto -> entity
+    public static MenuEntity toEntity(MenuDto.MenuRequestDto menuDto, MenuEntity parentMenu) {
         return MenuEntity.builder()
                 .menuName(menuDto.getMenuName())
                 .menuUrl(menuDto.getMenuUrl())
                 .menuRole(Role.valueOf(menuDto.getMenuRole()))
+                .sortOrder(menuDto.getSortOrder())
+                .isVisible(menuDto.getIsVisible())
+                .menuDesc(menuDto.getMenuDesc())
+                .parent(parentMenu)
                 .build();
     }
 }
