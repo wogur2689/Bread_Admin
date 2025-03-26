@@ -51,7 +51,6 @@
             const response = /*[[${response}]]*/;
 
             let treeData = transformToJSTree(response);
-            console.log(treeData);
 
             $('#menu-tree').jstree({
                 'core': {
@@ -89,6 +88,7 @@
                     text: item.menuName,
                     menuUrl: item.menuUrl,
                     menuRole: item.menuRole,
+                    menuDesc: item.menuDesc,
                     isVisible: item.isVisible,
                     sortOrder: item.sortOrder,
                     children: [] // 자식 노드 배열 초기화
@@ -107,7 +107,7 @@
 
             // 부모-자식 관계 설정
             response.forEach(item => {
-                if (item.parent === null) {
+                if (item.parentId === null) {
                     // 최상위 메뉴
                     treeData.push(map.get(item.id));
                 } else {
