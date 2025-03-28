@@ -27,12 +27,11 @@ public class MenuEntity extends TimeEntity {
     @Column(name = "menu_name", nullable = false, length = 100)
     private String menuName;            //메뉴명
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
-    private MenuEntity parent;          // 부모 메뉴 (NULL이면 최상위 GNB)
+    @Column(name = "parent_id")
+    private Long parentId;              // 부모 메뉴 ID (NULL이면 최상위 GNB)
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MenuEntity> children = new ArrayList<>(); // 자식 메뉴 목록
+    @Column(name = "menu_level")
+    private String menuLevel;           // 메뉴 레벨 (숫자가 낮을수록 최상위)
 
     @Column(name = "menu_url", nullable = false, length = 512)
     private String menuUrl;             //메뉴 url
@@ -50,11 +49,6 @@ public class MenuEntity extends TimeEntity {
     @Column(nullable = false)
     private Role menuRole = Role.USER; // 접근 권한 설정
 
-    //children만 수정 메서드
-    public void addChildren(List<MenuEntity> children) {
-        this.children.addAll(children); // Setter 없이 추가 가능!
-    }
-
     //변경감지
     public void update(MenuDto.MenuRequestDto dto) {
         this.menuName = dto.getMenuName();
@@ -66,15 +60,16 @@ public class MenuEntity extends TimeEntity {
     }
 
     //dto -> entity
-    public static MenuEntity toEntity(MenuDto.MenuRequestDto menuDto, MenuEntity parentMenu) {
+    public static MenuEntity toEntity(MenuDto.MenuRequestDto menuDto) {
         return MenuEntity.builder()
                 .menuName(menuDto.getMenuName())
                 .menuUrl(menuDto.getMenuUrl())
                 .menuRole(Role.valueOf(menuDto.getMenuRole()))
+                .menuLevel(menuDto.getMenuLevel())
                 .sortOrder(menuDto.getSortOrder())
                 .isVisible(menuDto.getIsVisible())
                 .menuDesc(menuDto.getMenuDesc())
-                .parent(parentMenu)
+                .parentId(menuDto.getParentId())
                 .build();
     }
 }

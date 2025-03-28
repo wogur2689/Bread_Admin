@@ -26,33 +26,21 @@ public class MenuService {
 
     @Transactional(readOnly = true)
     public List<MenuDto.MenuResponseDto> list() {
-        //1. 최상위 메뉴 조회
-        List<MenuEntity> rootMenus = menuRepository.findByParent(null); // 최상위 메뉴(GNB) 조회
+        //1. 메뉴 조회
+        List<MenuEntity> rootMenus = menuRepository.findAll(); // 최상위 메뉴(GNB) 조회
 
-        //2. 재귀호출을 이용한 자식 메뉴 로드
-        rootMenus.forEach(this::loadChildren); // 재귀적으로 자식 메뉴 로드
-
-        //3. entity -> res
+        //2. entity -> res
         return rootMenus.stream().map(MenuDto::toDto).collect(Collectors.toList());
-    }
-
-    private void loadChildren(MenuEntity menu) {
-        List<MenuEntity> children = menuRepository.findByParent(menu);
-        if (!children.isEmpty()) {
-            menu.addChildren(children); //커스텀 메서드 활용
-            children.forEach(this::loadChildren);
-        }
     }
 
     @Transactional(rollbackFor = Exception.class)
     public String insert(MenuDto.MenuRequestDto menuDto) {
         String code = CommonCode.CODE_0000.getCode();
         try {
-            //1. 부모 메뉴 조회
-            MenuEntity parentMenu = self.getMenu(menuDto.getParentId());
+            //1. dto -> entity
+            MenuEntity menu = MenuEntity.toEntity(menuDto);
 
-            //2. dto -> entity -> save
-            MenuEntity menu = MenuEntity.toEntity(menuDto, parentMenu);
+            //2. save
             menuRepository.save(menu);
         } catch (DataAccessException e) {
             throwError(CommonCode.CODE_9998.getCode());

@@ -21,6 +21,9 @@ public class MenuDto {
         private String menuUrl;     //메뉴url
 
         @NotBlank
+        private String menuLevel;   //메뉴 level
+
+        @NotBlank
         private String menuRole;    //메뉴권한
 
         @NotBlank
@@ -42,6 +45,7 @@ public class MenuDto {
         private Long id;           //메뉴키
         private String menuName;   //메뉴명
         private String menuUrl;    //메뉴url
+        private String menuLevel;  //메뉴 level
         private String menuRole;   //메뉴권한
         private String menuDesc;   //메뉴설명
         private String isVisible;  //메뉴 표시 여부
@@ -55,10 +59,11 @@ public class MenuDto {
                .id(menu.getId())
                .menuName(menu.getMenuName())
                .menuUrl(menu.getMenuUrl())
+               .menuLevel(menu.getMenuLevel())
                .menuRole(String.valueOf(menu.getMenuRole()))
                .isVisible(menu.getIsVisible())
                .sortOrder(menu.getSortOrder())
-               .parentId(menu.getParent() != null ? menu.getParent().getId() : null)
+               .parentId(menu.getParentId())
                .build();
     }
 }
