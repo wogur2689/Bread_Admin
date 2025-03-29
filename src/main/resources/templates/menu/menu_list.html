@@ -122,35 +122,59 @@
         }
 
         function addMenu() {
-            var ref = $('#menu-tree').jstree(true);
-            var selected = ref.get_selected();
+            const ref = $('#menu-tree').jstree(true);
+            const selected = ref.get_selected();
             if (!selected.length) {
                 alert("추가할 위치를 선택하세요!");
                 return;
             }
-            var newNodeId = 'new' + Math.random().toString(36).substr(2, 5);
+            const newNodeId = 1;
             ref.create_node(selected[0], {"id": newNodeId, "text": "새 메뉴"}, "last");
             ref.open_node(selected[0]);
             menuData[newNodeId] = {name: "새 메뉴", desc: "설명을 추가하세요", price: "₩0"};
 
-            //menu 추가
-            fnCommonPostCall('/menu/api/insert', newNodeId);
+            // 메뉴 추가 API 호출
+            const menuDto = {
+                id: newNodeId,
+                parentId: selected[0].id,  // 부모 메뉴 ID
+                menuName: "새 메뉴",
+                menuDesc: "설명을 추가하세요",
+                menuUrl: "",  // 필요하면 URL 값 추가
+                sortOrder: 0, // 기본 값 설정
+                isVisible: "Y",  // 기본적으로 표시됨
+                menuRole: "USER"  // 기본 값 설정 (필요시 수정)
+            };
+            console.log(menuDto);
+            fnCommonPostCall('/menu/api/insert', menuDto);
         }
 
         function removeMenu() {
-            var ref = $('#menu-tree').jstree(true);
-            var selected = ref.get_selected();
+            const ref = $('#menu-tree').jstree(true);
+            const selected = ref.get_selected();
             if (!selected.length) {
                 alert("삭제할 메뉴를 선택하세요!");
                 return;
             }
+
+            // 메뉴 삭제
+            const menuDto = {
+                id: selected[0],  // 삭제할 메뉴 ID
+                parentId: null,  // 부모 메뉴는 필요 없으므로 null
+                menuName: "",  // 삭제할 메뉴이므로 이름은 빈 값
+                menuDesc: "",
+                menuUrl: "",
+                sortOrder: 0,
+                isVisible: "N",  // 삭제 시 표시되지 않음
+                menuRole: "USER" // 기본값 설정
+            };
             delete menuData[selected[0]];
             ref.delete_node(selected);
             $("#menu-name").text("-");
             $("#menu-desc").text("-");
             $("#menu-price").text("-");
-            //menu 삭제
-            fnCommonPostCall('/menu/api/delete', selected);
+
+            // API 호출
+            fnCommonPostCall('/menu/api/delete', menuDto);
         }
     </script>
 </th:block>

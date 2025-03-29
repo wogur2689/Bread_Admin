@@ -39,6 +39,8 @@ public class MenuService {
         try {
             //1. dto -> entity
             MenuEntity menu = MenuEntity.toEntity(menuDto);
+            log.info("menu {}", menu.getIsVisible());
+            log.info("menu {}", menu.getMenuName());
 
             //2. save
             menuRepository.save(menu);

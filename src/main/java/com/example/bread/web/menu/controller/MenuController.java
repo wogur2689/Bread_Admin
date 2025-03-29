@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
@@ -31,7 +28,8 @@ public class MenuController {
     }
 
     @PostMapping("/api/{svc}")
-    public ModelAndView boardApi(@Valid @PathVariable String svc, MenuDto.MenuRequestDto menuDto, ModelAndView mav, BindingResult result) {
+    public ModelAndView boardApi(@Valid @PathVariable String svc, @RequestBody MenuDto.MenuRequestDto menuDto, ModelAndView mav, BindingResult result) {
+        log.info("param {}", menuDto);
         //param 검증
         if(result.hasErrors()) {
             throw new CustomException(CommonCode.CODE_9995.getCode(), CommonCode.CODE_9995.getMsg());

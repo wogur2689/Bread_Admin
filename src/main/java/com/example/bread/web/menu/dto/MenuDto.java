@@ -3,13 +3,11 @@ package com.example.bread.web.menu.dto;
 
 import com.example.bread.web.menu.entity.MenuEntity;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 public class MenuDto {
     @Getter
+    @ToString
     @AllArgsConstructor
     public static class MenuRequestDto {
         private Long id;            //메뉴ID
@@ -39,6 +37,7 @@ public class MenuDto {
 
     @Getter
     @Builder
+    @ToString
     @NoArgsConstructor
     @AllArgsConstructor
     public static class MenuResponseDto {

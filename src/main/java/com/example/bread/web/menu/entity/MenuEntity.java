@@ -45,9 +45,8 @@ public class MenuEntity extends TimeEntity {
     @Column(nullable = false, length = '1', columnDefinition = "N")
     private String isVisible;           // 메뉴 표시 여부
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role menuRole = Role.USER; // 접근 권한 설정
+    private String menuRole;            // 접근 권한 설정
 
     //변경감지
     public void update(MenuDto.MenuRequestDto dto) {
@@ -56,7 +55,7 @@ public class MenuEntity extends TimeEntity {
         this.menuDesc = dto.getMenuDesc();
         this.sortOrder = dto.getSortOrder();
         this.isVisible = dto.getIsVisible();
-        this.menuRole = Role.valueOf(dto.getMenuRole());
+        this.menuRole = dto.getMenuRole();
     }
 
     //dto -> entity
@@ -64,7 +63,7 @@ public class MenuEntity extends TimeEntity {
         return MenuEntity.builder()
                 .menuName(menuDto.getMenuName())
                 .menuUrl(menuDto.getMenuUrl())
-                .menuRole(Role.valueOf(menuDto.getMenuRole()))
+                .menuRole(menuDto.getMenuRole())
                 .menuLevel(menuDto.getMenuLevel())
                 .sortOrder(menuDto.getSortOrder())
                 .isVisible(menuDto.getIsVisible())

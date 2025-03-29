@@ -1,5 +1,6 @@
+const domain = 'http://localhost:8081'
 function fnCommonPostCall(url, data) {
-    return fetch(url, {
+    return fetch(domain + url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -20,7 +21,7 @@ function fnCommonPostCall(url, data) {
 }
 
 function fnCommonGetCall(url, data) {
-    return fetch(url + '?' + new URLSearchParams(data), {
+    return fetch(domain + url + '?' + new URLSearchParams(data), {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
