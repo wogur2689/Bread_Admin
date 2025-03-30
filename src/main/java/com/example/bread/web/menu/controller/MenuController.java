@@ -29,7 +29,6 @@ public class MenuController {
 
     @PostMapping("/api/{svc}")
     public ModelAndView boardApi(@Valid @PathVariable String svc, @RequestBody MenuDto.MenuRequestDto menuDto, ModelAndView mav, BindingResult result) {
-        log.info("param {}", menuDto);
         //param 검증
         if(result.hasErrors()) {
             throw new CustomException(CommonCode.CODE_9995.getCode(), CommonCode.CODE_9995.getMsg());

@@ -26,19 +26,22 @@
                 <h2>📄 메뉴 상세 정보</h2>
                 <div class="menu-info">
                     <div class="menu-sub-info">
-                        <div><span>메뉴명:</span> <span id="menu-name">-</span></div>
-                        <div><span>URL:</span><span id="menu-url">-</span></div>
+                        <div><span>메뉴명: </span> <input type="text" id="menu-name" value="" /></div>
+                        <div><span>URL: </span> <input type="text" id="menu-url" value="" /></div>
+                        <div><span>표시여부: </span> <input type="text" id="menu-visible" value="" /></div>
                     </div>
                     <div class="menu-sub-info">
-                        <div><span>표시여부:</span> <span id="menu-visible">-</span></div>
-                        <div><span>권한:</span><span id="menu-role">-</span></div>
+                        <div><span>권한: </span> <input type="text" id="menu-role" value="" /></div>
+                        <div><span>메뉴레벨: </span> <input type="text" id="menu-level" value="" /></div>
+                        <div><span>정렬순서: </span> <input type="number" id="menu-sortOrder" value="" /></div>
                     </div>
                     <div class="menu-sub-info">
-                        <div><span>설명</span> <span id="menu-desc">-</span></div>
+                        <div><span>부모메뉴: </span> <input type="text" id="menu-parentId" value="" /></div>
+                        <div><span>설명: </span> <input type="text" id="menu-desc" value="" /></div>
                     </div>
                 </div>
                 <div class="controls">
-                    <button>메뉴 수정</button>
+                    <button onclick="updateMenu()">메뉴 수정</button>
                 </div>
             </div>
         </div>
@@ -60,19 +63,25 @@
             });
 
             $('#menu-tree').on("select_node.jstree", function (e, data) {
-                let nodeId = data.node.id;
+                const nodeId = data.node.id;
                 if (menuData[nodeId]) {
-                    $("#menu-name").text(menuData[nodeId].name);
-                    $("#menu-url").text(menuData[nodeId].url);
-                    $("#menu-visible").text(menuData[nodeId].isVisible);
-                    $("#menu-role").text(menuData[nodeId].role);
-                    // $("#menu-desc").text(menuData[nodeId].desc);
+                    $("#menu-name").val(menuData[nodeId].name);
+                    $("#menu-url").val(menuData[nodeId].url);
+                    $("#menu-level").val(menuData[nodeId].menuLevel);
+                    $("#menu-visible").val(menuData[nodeId].isVisible);
+                    $("#menu-role").val(menuData[nodeId].menuRole);
+                    $("#menu-desc").val(menuData[nodeId].menuDesc);
+                    $("#menu-sortOrder").val(menuData[nodeId].sortOrder);
+                    $("#menu-parentId").val(menuData[nodeId].parentId);
                 } else {
-                    $("#menu-name").text('-');
-                    $("#menu-url").text('-');
-                    $("#menu-visible").text('-');
-                    $("#menu-role").text('-');
-                    // $("#menu-desc").text('-');
+                    $("#menu-name").val('');
+                    $("#menu-url").val('');
+                    $("#menu-level").val('');
+                    $("#menu-visible").val('');
+                    $("#menu-role").val('');
+                    $("#menu-desc").val('');
+                    $("#menu-sortOrder").val('');
+                    $("#menu-parentId").val('');
                 }
             });
         });
@@ -89,6 +98,7 @@
                     menuUrl: item.menuUrl,
                     menuRole: item.menuRole,
                     menuDesc: item.menuDesc,
+                    menuLevel: item.menuLevel,
                     isVisible: item.isVisible,
                     sortOrder: item.sortOrder,
                     children: [] // 자식 노드 배열 초기화
@@ -99,7 +109,11 @@
                     name: item.menuName,
                     url: item.menuUrl,
                     isVisible: item.isVisible,
-                    role: item.role
+                    menuRole: item.menuRole,
+                    menuDesc: item.menuDesc,
+                    menuLevel: item.menuLevel,
+                    sortOrder: item.sortOrder,
+                    parentId: item.parentId
                 };
             });
 
@@ -128,24 +142,59 @@
                 alert("추가할 위치를 선택하세요!");
                 return;
             }
-            const newNodeId = 1;
-            ref.create_node(selected[0], {"id": newNodeId, "text": "새 메뉴"}, "last");
-            ref.open_node(selected[0]);
-            menuData[newNodeId] = {name: "새 메뉴", desc: "설명을 추가하세요", price: "₩0"};
 
             // 메뉴 추가 API 호출
             const menuDto = {
-                id: newNodeId,
                 parentId: selected[0].id,  // 부모 메뉴 ID
                 menuName: "새 메뉴",
                 menuDesc: "설명을 추가하세요",
+                menuLevel: "1",
                 menuUrl: "",  // 필요하면 URL 값 추가
                 sortOrder: 0, // 기본 값 설정
                 isVisible: "Y",  // 기본적으로 표시됨
                 menuRole: "USER"  // 기본 값 설정 (필요시 수정)
             };
-            console.log(menuDto);
-            fnCommonPostCall('/menu/api/insert', menuDto);
+
+            fnCommonPostCall('/menu/api/insert', menuDto)
+                .then(res => {
+                    if(res.code === "0000") {
+                        alert("메뉴 생성이 완료되었습니다.");
+                        window.location.reload();
+                    } else {
+                        alert("다시 시도해 주세요.");
+                    }
+                });
+        }
+
+        function updateMenu() {
+            const ref = $('#menu-tree').jstree(true);
+            const selected = ref.get_selected();
+            if (!selected.length) {
+                alert("수정할 메뉴를 선택하세요!");
+                return;
+            }
+
+            // 메뉴 수정 API 호출
+            const menuDto = {
+                id: selected[0],
+                parentId: $("#menu-parentId").val(),
+                menuName: $("#menu-name").val(),
+                menuDesc: $("#menu-desc").val(),
+                menuLevel: $("#menu-level").val(),
+                menuUrl: $("#menu-url").val(),
+                sortOrder: $("#menu-sortOrder").val(),
+                isVisible: $("#menu-visible").val(),
+                menuRole: $("#menu-role").val()
+            };
+            fnCommonPostCall('/menu/api/update', menuDto)
+                .then(res => {
+                    if(res.code === "0000") {
+                        alert("메뉴 수정이 완료되었습니다.");
+                        window.location.reload();
+                    } else {
+                        alert("다시 시도해 주세요.");
+                    }
+                });
         }
 
         function removeMenu() {
@@ -159,22 +208,18 @@
             // 메뉴 삭제
             const menuDto = {
                 id: selected[0],  // 삭제할 메뉴 ID
-                parentId: null,  // 부모 메뉴는 필요 없으므로 null
-                menuName: "",  // 삭제할 메뉴이므로 이름은 빈 값
-                menuDesc: "",
-                menuUrl: "",
-                sortOrder: 0,
-                isVisible: "N",  // 삭제 시 표시되지 않음
-                menuRole: "USER" // 기본값 설정
             };
-            delete menuData[selected[0]];
-            ref.delete_node(selected);
-            $("#menu-name").text("-");
-            $("#menu-desc").text("-");
-            $("#menu-price").text("-");
 
             // API 호출
-            fnCommonPostCall('/menu/api/delete', menuDto);
+            fnCommonPostCall('/menu/api/delete', menuDto)
+                .then(res => {
+                    if(res.code === "0000") {
+                        alert("메뉴 삭제가 완료되었습니다.");
+                        window.location.reload();
+                    } else {
+                        alert("다시 시도해 주세요.");
+                    }
+                });
         }
     </script>
 </th:block>

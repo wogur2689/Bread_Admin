@@ -39,8 +39,6 @@ public class MenuService {
         try {
             //1. dto -> entity
             MenuEntity menu = MenuEntity.toEntity(menuDto);
-            log.info("menu {}", menu.getIsVisible());
-            log.info("menu {}", menu.getMenuName());
 
             //2. save
             menuRepository.save(menu);
@@ -88,7 +86,6 @@ public class MenuService {
     }
 
     //메뉴 조회
-    @Transactional(readOnly = true)
     public MenuEntity getMenu(Long id) {
         return menuRepository.findById(id).orElse(null);
     }

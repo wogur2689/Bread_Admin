@@ -58,6 +58,7 @@ public class MenuDto {
                .id(menu.getId())
                .menuName(menu.getMenuName())
                .menuUrl(menu.getMenuUrl())
+               .menuDesc(menu.getMenuDesc())
                .menuLevel(menu.getMenuLevel())
                .menuRole(String.valueOf(menu.getMenuRole()))
                .isVisible(menu.getIsVisible())
