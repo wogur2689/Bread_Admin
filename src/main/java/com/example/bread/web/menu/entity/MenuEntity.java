@@ -40,7 +40,7 @@ public class MenuEntity extends TimeEntity {
     private String menuDesc;            //메뉴설명
 
     @Column(nullable = false)
-    private Integer sortOrder = 0;      // 메뉴 정렬 순서
+    private Integer sortOrder;          // 메뉴 정렬 순서
 
     @Column(nullable = false, length = '1', columnDefinition = "N")
     private String isVisible;           // 메뉴 표시 여부
