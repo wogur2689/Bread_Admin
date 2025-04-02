@@ -60,7 +60,7 @@ public class MenuDto {
                .menuUrl(menu.getMenuUrl())
                .menuDesc(menu.getMenuDesc())
                .menuLevel(menu.getMenuLevel())
-               .menuRole(String.valueOf(menu.getMenuRole()))
+               .menuRole(menu.getMenuRole())
                .isVisible(menu.getIsVisible())
                .sortOrder(menu.getSortOrder())
                .parentId(menu.getParentId())
