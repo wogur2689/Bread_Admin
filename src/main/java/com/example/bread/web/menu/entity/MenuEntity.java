@@ -30,7 +30,7 @@ public class MenuEntity extends TimeEntity {
     @Column(name = "parent_id")
     private Long parentId;              // 부모 메뉴 ID (NULL이면 최상위 GNB)
 
-    @Column(name = "menu_level")
+    @Column(name = "menu_level", nullable = false, length = 2)
     private String menuLevel;           // 메뉴 레벨 (숫자가 낮을수록 최상위)
 
     @Column(name = "menu_url", nullable = false, length = 512)
