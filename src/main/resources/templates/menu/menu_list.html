@@ -121,7 +121,7 @@
 
             // 부모-자식 관계 설정
             response.forEach(item => {
-                if (item.parentId === null) {
+                if (item.parentId === 0) {
                     // 최상위 메뉴
                     treeData.push(map.get(item.id));
                 } else {
