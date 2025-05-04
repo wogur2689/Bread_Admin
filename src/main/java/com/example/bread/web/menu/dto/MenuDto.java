@@ -12,22 +12,22 @@ public class MenuDto {
     public static class MenuRequestDto {
         private Long id;            //메뉴ID
 
-        @NotBlank
+        @NotBlank(message = "메뉴명을 입력해주세요.")
         private String menuName;    //메뉴명
 
-        @NotBlank
+        @NotBlank(message = "메뉴 URL을 입력해주세요.")
         private String menuUrl;     //메뉴url
 
-        @NotBlank
+        @NotBlank(message = "메뉴 level을 입력해주세요.")
         private String menuLevel;   //메뉴 level
 
-        @NotBlank
+        @NotBlank(message = "메뉴권한을 입력해주세요.")
         private String menuRole;    //메뉴권한
 
-        @NotBlank
+        @NotBlank(message = "메뉴 표시여부를 선택해주세요.")
         private String isVisible;   //메뉴 표시 여부
 
-        @NotBlank
+        @NotBlank(message = "정렬순서를 입력해주세요.")
         private Integer sortOrder;  //정렬 순서
 
         private String menuDesc;    //메뉴설명
