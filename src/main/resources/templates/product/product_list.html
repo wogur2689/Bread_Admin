@@ -8,18 +8,6 @@
         <h2 class="board-title">상품 관리</h2>
         <!-- Filter and Search Section -->
         <div class="filter-search">
-            <div class="filter">
-                <label for="start-date">시작일</label>
-                <input type="date" id="start-date" />
-                <label for="end-date">종료일</label>
-                <input type="date" id="end-date" />
-                <label for="post-count">글 갯수:</label>
-                <select id="post-count">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                </select>
-            </div>
             <div class="search-create">
                 <input type="text" placeholder="키워드" />
                 <button class="create-btn" onclick="fnCommonPostCall('/api/collect/parisData', null)">상품수집</button>
@@ -37,29 +25,8 @@
                 <p class="post-price"><b th:text="'가격 : ' + ${data.price} + ' 원'"></b></p>
             </div>
         </div>
-
-
         <!-- Pagination -->
-        <div class="pagination" th:if="${totalPages != null and totalPages > 0}">
-            <!-- 이전 버튼 -->
-            <button th:if="${currentPage > 1}"
-                    th:onclick="|location.href='?page=${currentPage - 1}'|">
-                &laquo;
-            </button>
-
-            <!-- 페이지 번호 -->
-            <button th:each="i : ${#numbers.sequence(1, totalPages)}"
-                    th:classappend="${i == currentPage} ? 'active'"
-                    th:onclick="|location.href='?page=${i}'|"
-                    th:text="${i}">
-            </button>
-
-            <!-- 다음 버튼 -->
-            <button th:if="${currentPage < totalPages}"
-                    th:onclick="|location.href='?page=${currentPage + 1}'|">
-                &raquo;
-            </button>
-        </div>
+        <th:block th:replace="~{common/common/pagination.html :: pagination}"></th:block>
     </div>
     <script src="/js/common/commonApi.js"></script>
 </th:block>

@@ -62,26 +62,7 @@
         </table>
 
         <!-- Pagination -->
-        <div class="pagination" th:if="${totalPages != null and totalPages > 0}">
-            <!-- 이전 버튼 -->
-            <button th:if="${currentPage > 1}"
-                    th:onclick="|location.href='?page=${currentPage - 1}'|">
-                &laquo;
-            </button>
-
-            <!-- 페이지 번호 -->
-            <button th:each="i : ${#numbers.sequence(1, totalPages)}"
-                    th:classappend="${i == currentPage} ? 'active'"
-                    th:onclick="|location.href='?page=${i}'|"
-                    th:text="${i}">
-            </button>
-
-            <!-- 다음 버튼 -->
-            <button th:if="${currentPage < totalPages}"
-                    th:onclick="|location.href='?page=${currentPage + 1}'|">
-                &raquo;
-            </button>
-        </div>
+        <th:block th:replace="~{common/common/pagination.html :: pagination}"></th:block>
     </div>
 </th:block>
 </html>
