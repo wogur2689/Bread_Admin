@@ -27,11 +27,11 @@ public class ProductEntity extends TimeEntity {
     private String imageUrl;    //이미지 경로
 
     //dto -> entity
-    public static ProductEntity toEntity(ProductDto productDto) {
+    public static ProductEntity toEntity(ProductDto.ProductRequestDto productDto) {
         return ProductEntity.builder()
-                .name(productDto.name())
-                .price(productDto.price())
-                .imageUrl(productDto.imageUrl())
+                .name(productDto.getName())
+                .price(productDto.getPrice())
+                .imageUrl(productDto.getImageUrl())
                 .build();
     }
 }

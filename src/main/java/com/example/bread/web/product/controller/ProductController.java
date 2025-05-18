@@ -55,7 +55,7 @@ public class ProductController {
     }
 
     @PostMapping("/api/{svc}")
-    public ModelAndView productApi(@PathVariable String svc, ProductDto productDto, ModelAndView mav) {
+    public ModelAndView productApi(@PathVariable String svc, ProductDto.ProductRequestDto productDto, ModelAndView mav) {
         String code = svcSwitch(svc, productDto);
         mav.addObject("code", code);
         mav.addObject("msg", CommonCode.getMessage(code));
@@ -63,7 +63,7 @@ public class ProductController {
         return mav;
     }
 
-    private String svcSwitch(String svc, ProductDto productDto) {
+    private String svcSwitch(String svc, ProductDto.ProductRequestDto productDto) {
         return switch (svc) {
             case "insert" -> productService.insert(productDto);
             case "update" -> productService.update(productDto);

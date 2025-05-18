@@ -31,7 +31,7 @@ public class ProductService {
         return productRepository.findById(id).orElseThrow();
     }
 
-    public String insert(ProductDto productDto) {
+    public String insert(ProductDto.ProductRequestDto productDto) {
         String code = CommonCode.CODE_0000.getCode();
         try {
             ProductEntity product = ProductEntity.toEntity(productDto);
@@ -43,7 +43,7 @@ public class ProductService {
         return code;
     }
 
-    public String update(ProductDto productDto) {
+    public String update(ProductDto.ProductRequestDto productDto) {
         String code = CommonCode.CODE_0000.getCode();
         try {
             ProductEntity product = ProductEntity.toEntity(productDto);
@@ -55,7 +55,7 @@ public class ProductService {
         return code;
     }
 
-    public String delete(ProductDto productDto) {
+    public String delete(ProductDto.ProductRequestDto productDto) {
         String code = CommonCode.CODE_0000.getCode();
         try {
             ProductEntity product = ProductEntity.toEntity(productDto);
