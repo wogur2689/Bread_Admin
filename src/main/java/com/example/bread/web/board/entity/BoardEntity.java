@@ -24,10 +24,10 @@ public class BoardEntity extends TimeEntity {
     private String contents;    //내용
 
     //dto -> entity
-    public static BoardEntity toEntity(BoardDto boardDto) {
+    public static BoardEntity toEntity(BoardDto.BoardRequestDto boardDto) {
         return BoardEntity.builder()
-                .subject(boardDto.subject())
-                .contents(boardDto.contents())
+                .subject(boardDto.getSubject())
+                .contents(boardDto.getContents())
                 .build();
     }
 }

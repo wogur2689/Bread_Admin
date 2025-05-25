@@ -29,7 +29,7 @@ public class BoardService {
         return boardRepository.findById(id).orElseThrow();
     }
 
-    public String insert(BoardDto boardDto) {
+    public String insert(BoardDto.BoardRequestDto boardDto) {
         String code = CommonCode.CODE_0000.getCode();
         try {
             BoardEntity board = BoardEntity.toEntity(boardDto);
@@ -41,7 +41,7 @@ public class BoardService {
         return code;
     }
 
-    public String update(BoardDto boardDto) {
+    public String update(BoardDto.BoardRequestDto boardDto) {
         String code = CommonCode.CODE_0000.getCode();
         try {
             BoardEntity board = BoardEntity.toEntity(boardDto);
@@ -53,7 +53,7 @@ public class BoardService {
         return code;
     }
 
-    public String delete(BoardDto boardDto) {
+    public String delete(BoardDto.BoardRequestDto boardDto) {
         String code = CommonCode.CODE_0000.getCode();
         try {
             BoardEntity board = BoardEntity.toEntity(boardDto);

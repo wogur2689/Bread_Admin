@@ -53,7 +53,7 @@ public class BoardController {
     }
 
     @PostMapping("/api/{svc}")
-    public ModelAndView boardApi(@PathVariable String svc, BoardDto boardDto, ModelAndView mav) {
+    public ModelAndView boardApi(@PathVariable String svc, BoardDto.BoardRequestDto boardDto, ModelAndView mav) {
         String code = svcSwitch(svc, boardDto);
         mav.addObject("code", code);
         mav.addObject("msg", CommonCode.getMessage(code));
@@ -61,7 +61,7 @@ public class BoardController {
         return mav;
     }
 
-    private String svcSwitch(String svc, BoardDto boardDto) {
+    private String svcSwitch(String svc, BoardDto.BoardRequestDto boardDto) {
         return switch (svc) {
             case "insert" -> boardService.insert(boardDto);
             case "update" -> boardService.update(boardDto);
