@@ -42,7 +42,7 @@ public class MenuService {
 
             //2. save
             menuRepository.save(menu);
-        } catch (DataAccessException e) {
+        } catch (DataAccessException | NullPointerException e) {
             throwError(CommonCode.CODE_9998.getCode());
         }
         return code;
@@ -61,7 +61,7 @@ public class MenuService {
 
             //2. 변경감지를 이용한 기존데이터 값 수정
             targetMenu.update(menuDto);
-        } catch (DataAccessException e) {
+        } catch (DataAccessException | NullPointerException e) {
             throwError(CommonCode.CODE_9998.getCode());
         }
         return code;
@@ -79,7 +79,7 @@ public class MenuService {
 
             //2. 기존메뉴를 이용하여 삭제
             menuRepository.delete(targetMenu);
-        } catch (DataAccessException e) {
+        } catch (DataAccessException | NullPointerException e) {
             throwError(CommonCode.CODE_9998.getCode());
         }
         return code;

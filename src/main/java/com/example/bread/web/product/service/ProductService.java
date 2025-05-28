@@ -6,6 +6,7 @@ import com.example.bread.web.product.entity.ProductEntity;
 import com.example.bread.web.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -36,8 +37,7 @@ public class ProductService {
         try {
             ProductEntity product = ProductEntity.toEntity(productDto);
             productRepository.save(product);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (DataAccessException | NullPointerException e) {
             code = "9999";
         }
         return code;
@@ -48,8 +48,7 @@ public class ProductService {
         try {
             ProductEntity product = ProductEntity.toEntity(productDto);
             productRepository.save(product);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (DataAccessException | NullPointerException e) {
             code = "9999";
         }
         return code;
@@ -60,8 +59,7 @@ public class ProductService {
         try {
             ProductEntity product = ProductEntity.toEntity(productDto);
             productRepository.delete(product);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (DataAccessException | NullPointerException e) {
             code = "9999";
         }
         return code;

@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -35,8 +36,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
             //4. 유저정보 세션에 저장 후 세션 지속시간 설정(60분)
             session.setAttribute("UserInfo", loginDto);
             session.setMaxInactiveInterval(3600);
-        } catch (Exception e) {
-            log.error("### error : {} ###", e.getMessage());
+        } catch (NullPointerException e) {
+            log.error("### error - userId null ###");
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"시스템 에러입니다. 다시 시도해주세요.");
         }
         //로그인 성공후 메인으로 이동

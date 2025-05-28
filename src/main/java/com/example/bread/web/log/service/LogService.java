@@ -1,9 +1,9 @@
-package com.example.bread.web.board.service;
+package com.example.bread.web.log.service;
 
 import com.example.bread.common.util.CommonCode;
-import com.example.bread.web.board.dto.BoardDto;
-import com.example.bread.web.board.entity.BoardEntity;
-import com.example.bread.web.board.reposiory.BoardRepository;
+import com.example.bread.web.log.dto.LogDto;
+import com.example.bread.web.log.entity.LogEntity;
+import com.example.bread.web.log.reposiory.LogRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
@@ -18,34 +18,34 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class BoardService {
-    private final BoardRepository boardRepository;
+public class LogService {
+    private final LogRepository logRepository;
 
-    public Page<BoardEntity> list(int page) {
+    public Page<LogEntity> list(int page) {
         Pageable pageable = PageRequest.of(page - 1, 10, Sort.by(Sort.Direction.DESC, "createdAt"));
-        return boardRepository.findAll(pageable);
+        return logRepository.findAll(pageable);
     }
 
-    public BoardEntity view(Long id) {
-        return boardRepository.findById(id).orElseThrow();
+    public LogEntity view(Long id) {
+        return logRepository.findById(id).orElseThrow();
     }
 
-    public String insert(BoardDto.BoardRequestDto boardDto) {
+    public String insert(LogDto.LogRequestDto logDto) {
         String code = CommonCode.CODE_0000.getCode();
         try {
-            BoardEntity board = BoardEntity.toEntity(boardDto);
-            boardRepository.save(board);
+            LogEntity board = LogEntity.toEntity(logDto);
+            logRepository.save(board);
         } catch (DataAccessException | NullPointerException e) {
             code = "9999";
         }
         return code;
     }
 
-    public String update(BoardDto.BoardRequestDto boardDto) {
+    public String update(LogDto.LogRequestDto logDto) {
         String code = CommonCode.CODE_0000.getCode();
         try {
-            BoardEntity board = BoardEntity.toEntity(boardDto);
-            boardRepository.save(board);
+            LogEntity board = LogEntity.toEntity(logDto);
+            logRepository.save(board);
         } catch (DataAccessException | NullPointerException e) {
             e.printStackTrace();
             code = "9999";
@@ -53,11 +53,11 @@ public class BoardService {
         return code;
     }
 
-    public String delete(BoardDto.BoardRequestDto boardDto) {
+    public String delete(LogDto.LogRequestDto logDto) {
         String code = CommonCode.CODE_0000.getCode();
         try {
-            BoardEntity board = BoardEntity.toEntity(boardDto);
-            boardRepository.delete(board);
+            LogEntity board = LogEntity.toEntity(logDto);
+            logRepository.delete(board);
         } catch (DataAccessException | NullPointerException e) {
             e.printStackTrace();
             code = "9999";
