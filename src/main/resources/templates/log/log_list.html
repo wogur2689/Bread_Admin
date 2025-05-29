@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/common/layout/default_layout}">
+<th:block layout:fragment="content">
+    <div class="community">
+        <h2 class="board-title">관리자 로그 기록</h2>
+        <!-- Filter and Search/Create Section -->
+        <div class="filter-search">
+            <div class="filter">
+                <label for="start-date">시작일</label>
+                <input type="date" id="start-date" />
+                <label for="end-date">종료일</label>
+                <input type="date" id="end-date" />
+                <label for="post-count">글 갯수:</label>
+                <select id="post-count">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
+            <div class="search-create">
+                <input type="text" placeholder="키워드" />
+                <button class="create-btn">검색</button>
+            </div>
+        </div>
+
+        <!-- Posts Table -->
+        <table class="post-list">
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>메세지</th>
+                <th>작성자</th>
+                <th>작성일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="data : ${response.content}">
+                <td th:text="${data.id}"></td>
+                <td th:text="${data.subject}"></td>
+                <td th:text="${data.createdBy}"></td>
+                <td th:text="${data.createdAt}"></td>
+            </tr>
+            <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <th:block th:replace="~{common/common/pagination.html :: pagination}"></th:block>
+    </div>
+</th:block>
+</html>

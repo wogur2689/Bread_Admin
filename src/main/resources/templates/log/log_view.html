@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/common/layout/default_layout}">
+<th:block layout:fragment="content">
+    <div class="post-view">
+        <h2 class="post-title"></h2>
+        <div class="post-meta">
+            <span class="post-author"></span>
+            <span class="post-date"></span>
+        </div>
+        <div class="post-content">
+            <p>
+            </p>
+        </div>
+        <div class="post-actions">
+            <button class="edit-btn"></button>
+            <button class="delete-btn"></button>
+        </div>
+    </div>
+</th:block>
+</html>
