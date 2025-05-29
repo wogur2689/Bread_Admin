@@ -29,39 +29,4 @@ public class LogService {
     public LogEntity view(Long id) {
         return logRepository.findById(id).orElseThrow();
     }
-
-    public String insert(LogDto.LogRequestDto logDto) {
-        String code = CommonCode.CODE_0000.getCode();
-        try {
-            LogEntity board = LogEntity.toEntity(logDto);
-            logRepository.save(board);
-        } catch (DataAccessException | NullPointerException e) {
-            code = "9999";
-        }
-        return code;
-    }
-
-    public String update(LogDto.LogRequestDto logDto) {
-        String code = CommonCode.CODE_0000.getCode();
-        try {
-            LogEntity board = LogEntity.toEntity(logDto);
-            logRepository.save(board);
-        } catch (DataAccessException | NullPointerException e) {
-            e.printStackTrace();
-            code = "9999";
-        }
-        return code;
-    }
-
-    public String delete(LogDto.LogRequestDto logDto) {
-        String code = CommonCode.CODE_0000.getCode();
-        try {
-            LogEntity board = LogEntity.toEntity(logDto);
-            logRepository.delete(board);
-        } catch (DataAccessException | NullPointerException e) {
-            e.printStackTrace();
-            code = "9999";
-        }
-        return code;
-    }
 }

@@ -38,35 +38,4 @@ public class LogController {
         mav.setViewName("log/log_view");
         return mav;
     }
-
-    @GetMapping("/logEdit/{id}")
-    public ModelAndView edit(@PathVariable Long id, ModelAndView mav) {
-        mav.addObject("response", logService.view(id));
-        mav.setViewName("log/log_edit");
-        return mav;
-    }
-
-    @GetMapping("/logWrite")
-    public ModelAndView write(ModelAndView mav) {
-        mav.setViewName("log/log_write");
-        return mav;
-    }
-
-    @PostMapping("/api/{svc}")
-    public ModelAndView LogApi(@PathVariable String svc, LogDto.LogRequestDto logDto, ModelAndView mav) {
-        String code = svcSwitch(svc, logDto);
-        mav.addObject("code", code);
-        mav.addObject("msg", CommonCode.getMessage(code));
-        mav.setViewName("jsonView");
-        return mav;
-    }
-
-    private String svcSwitch(String svc, LogDto.LogRequestDto LogDto) {
-        return switch (svc) {
-            case "insert" -> logService.insert(LogDto);
-            case "update" -> logService.update(LogDto);
-            case "delete" -> logService.delete(LogDto);
-            default -> CommonCode.CODE_0000.getCode();
-        };
-    }
 }
