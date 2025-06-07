@@ -17,8 +17,11 @@ public class LogEntity extends TimeEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "subject", nullable = false, length = 50)
-    private String subject;     //제목
+    @Column(name = "log_type", nullable = false, length = 50)
+    private String logType;     //로그 타입 (info, error)
+
+    @Column(name = "logName", nullable = false, length = 50)
+    private String logName;     //로그명
 
     @Column(name = "contents", nullable = false)
     private String contents;    //내용
@@ -26,8 +29,6 @@ public class LogEntity extends TimeEntity {
     //dto -> entity
     public static LogEntity toEntity(LogDto.LogRequestDto logDto) {
         return LogEntity.builder()
-                .subject(logDto.getSubject())
-                .contents(logDto.getContents())
                 .build();
     }
 }
