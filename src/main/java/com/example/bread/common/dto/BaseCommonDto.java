@@ -21,4 +21,5 @@ public class BaseCommonDto {
 
     private String pageSize;            //갯수
     private String pageOffset;          //페이지 번호
+    private String keyWord;             //키워드
 }
