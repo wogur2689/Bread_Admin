@@ -2,22 +2,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="filter">
   <div class="filter-search">
-    <div class="filter">
-      <label for="start-date">시작일</label>
-      <input type="date" id="start-date" />
-      <label for="end-date">종료일</label>
-      <input type="date" id="end-date" />
-      <label for="post-count">글 갯수:</label>
-      <select id="post-count">
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="20">20</option>
-      </select>
-    </div>
-    <div class="search-create">
-      <input type="text" id="keyWord" placeholder="키워드" />
-      <button class="create-btn" th:onclick="|location.href='?page=1'|">검색</button>
-    </div>
+      <div class="filter">
+        <label for="start-date">시작일</label>
+        <input type="date" id="start-date" />
+        <label for="end-date">종료일</label>
+        <input type="date" id="end-date" />
+        <label for="post-count">글 갯수:</label>
+        <select id="post-count">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+        </select>
+      </div>
+      <div class="search-create">
+        <input type="text" id="keyWord" placeholder="키워드" />
+        <button class="create-btn" th:onclick="search">검색</button>
+      </div>
   </div>
+  <script>
+    function search() {
+      const start = document.getElementById('start-date');
+      const end = document.getElementById('end-date');
+      const offset = document.getElementById('post-count');
+      const keyWord = document.getElementById('keyWord');
+
+      location.href = '?page=1&startDate=' + start + '&endDate=' + end + '&pageOffset=' + offset + '&keyWord=' + keyWord;
+    }
+  </script>
 </th:block>
 </html>
