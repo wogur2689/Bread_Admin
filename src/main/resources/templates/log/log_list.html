@@ -14,7 +14,8 @@
             <thead>
             <tr>
                 <th>번호</th>
-                <th>메세지</th>
+                <th>로그타입</th>
+                <th>로그명</th>
                 <th>작성자</th>
                 <th>작성일</th>
             </tr>
@@ -22,7 +23,8 @@
             <tbody>
             <tr th:each="data : ${response.content}">
                 <td th:text="${data.id}"></td>
-                <td th:text="${data.subject}"></td>
+                <td th:text="${data.type}"></td>
+                <td th:text="${data.name}"></td>
                 <td th:text="${data.createdBy}"></td>
                 <td th:text="${data.createdAt}"></td>
             </tr>
