@@ -8,12 +8,14 @@ public class LogDto {
 
     @Getter
     @ToString
+    @Builder
     @AllArgsConstructor
     public static class LogRequestDto {
         private Long id;            //ID
-
-        @NotBlank(message = "제목을 입력해주세요.")
-        private String subject;     //제목
+        @NotBlank(message = "로그타입을 입력해주세요.")
+        private String logType;     //로그 타입 (info, error)
+        @NotBlank(message = "로그명을 입력해주세요.")
+        private String logName;     //로그명
         @NotBlank(message = "내용을 입력해주세요.")
         private String contents;    //내용
     }
@@ -25,16 +27,18 @@ public class LogDto {
     @AllArgsConstructor
     public static class LogResponseDto {
         private Long id;            //ID
-        private String subject;     //제목
+        private String logType;     //로그 타입 (info, error)
+        private String logName;     //로그명
         private String contents;    //내용
     }
 
     //entity -> dto
-    public static LogResponseDto toDto(LogEntity Log) {
+    public static LogResponseDto toDto(LogEntity log) {
         return LogResponseDto.builder()
-                .id(Log.getId())
-                .subject(Log.getSubject())
-                .contents(Log.getContents())
+                .id(log.getId())
+                .logName(log.getLogName())
+                .logType(log.getLogType())
+                .contents(log.getContents())
                 .build();
     }
 }

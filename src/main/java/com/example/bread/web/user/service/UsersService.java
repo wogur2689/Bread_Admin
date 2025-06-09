@@ -1,5 +1,6 @@
 package com.example.bread.web.user.service;
 
+import com.example.bread.web.log.annotation.Loggable;
 import com.example.bread.web.user.entiry.UsersEntity;
 import com.example.bread.web.user.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Loggable
 @Slf4j
 @Service
 @Transactional(readOnly = true)

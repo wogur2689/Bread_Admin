@@ -1,12 +1,9 @@
 package com.example.bread.web.log.service;
 
-import com.example.bread.common.util.CommonCode;
-import com.example.bread.web.log.dto.LogDto;
 import com.example.bread.web.log.entity.LogEntity;
 import com.example.bread.web.log.reposiory.LogRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

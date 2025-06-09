@@ -1,6 +1,7 @@
 package com.example.bread.web.product.service;
 
 import com.example.bread.common.util.CommonCode;
+import com.example.bread.web.log.annotation.Loggable;
 import com.example.bread.web.product.dto.ProductDto;
 import com.example.bread.web.product.entity.ProductEntity;
 import com.example.bread.web.product.repository.ProductRepository;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Loggable
 @Slf4j
 @Service
 @Transactional

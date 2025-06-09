@@ -2,6 +2,7 @@ package com.example.bread.web.menu.service;
 
 import com.example.bread.common.exception.CustomException;
 import com.example.bread.common.util.CommonCode;
+import com.example.bread.web.log.annotation.Loggable;
 import com.example.bread.web.menu.dto.MenuDto;
 import com.example.bread.web.menu.entity.MenuEntity;
 import com.example.bread.web.menu.repository.MenuRepository;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Loggable
 @Slf4j
 @Service
 public class MenuService {

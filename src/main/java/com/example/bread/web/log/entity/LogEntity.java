@@ -29,6 +29,9 @@ public class LogEntity extends TimeEntity {
     //dto -> entity
     public static LogEntity toEntity(LogDto.LogRequestDto logDto) {
         return LogEntity.builder()
+                .logType(logDto.getLogType())
+                .logName(logDto.getLogName())
+                .contents(logDto.getContents())
                 .build();
     }
 }
