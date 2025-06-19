@@ -22,7 +22,7 @@
             </thead>
             <tbody>
             <tr th:each="data : ${response.content}">
-                <td th:text="${data.id}"></td>
+                <td th:text="${data.id}" th:onclick="|fnPageMove('/board/boardView/${data.id}')|"></td>
                 <td th:text="${data.subject}"></td>
                 <td th:text="${data.createdBy}"></td>
                 <td th:text="${data.createdAt}"></td>
