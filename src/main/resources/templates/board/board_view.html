@@ -3,21 +3,25 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/common/layout/default_layout}">
+<head>
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet" />
+    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+</head>
 <th:block layout:fragment="content">
     <div class="post-view">
-        <h2 class="post-title"></h2>
-        <div class="post-meta">
-            <span class="post-author"></span>
-            <span class="post-date"></span>
+        <div class="form-group">
+            <label for="subject">제목</label>
+            <input type="text" id="subject" th:value="${response.getSubject()}" readonly />
         </div>
-        <div class="post-content">
-            <p>
-            </p>
+        <div class="form-group">
+            <label for="editor-container">Content</label>
+            <div id="editor-container" th:utext="${response.getContents()}"></div>
         </div>
-        <div class="post-actions">
-            <button class="edit-btn"></button>
-            <button class="delete-btn"></button>
+        <div class="form-actions">
+            <button type="button" class="edit-btn">수정하기</button>
+            <button type="button" class="delete-btn">삭제</button>
         </div>
     </div>
+    <script src="/js/common/edit.js"></script>
 </th:block>
 </html>
