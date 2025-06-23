@@ -34,6 +34,9 @@
                 .then(res => {
                     if(res.code === "0000") {
                         alert('삭제되었습니다.');
+                        fnPageMove('/board/boardList');
+                    } else {
+                        alert("다시 시도해 주세요.");
                     }
                 })
                 .catch(err => {
