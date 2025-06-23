@@ -19,10 +19,28 @@
         </div>
         <div class="form-actions">
             <button type="button" class="edit-btn" th:onclick="|fnPageMove('/board/boardEdit/${response.id}')|">수정하기</button>
-            <button type="button" class="delete-btn">삭제</button>
+            <button type="button" class="delete-btn" th:onclick="|deleteBoard('${response.id}')|">삭제</button>
         </div>
     </div>
     <script src="/js/common/edit.js"></script>
     <script src="/js/common/commonApi.js"></script>
+    <script>
+        function deleteBoard(id) {
+            const param = {
+                'id' : id
+            };
+
+            fnCommonPostCall('/board/api/delete', param)
+                .then(res => {
+                    if(res.code === "0000") {
+                        alert('삭제되었습니다.');
+                    }
+                })
+                .catch(err => {
+                    console.error('error : ', err);
+                    alert('시스템 오류가 발생하였습니다.');
+                })
+        }
+    </script>
 </th:block>
 </html>
