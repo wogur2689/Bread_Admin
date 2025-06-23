@@ -18,10 +18,11 @@
             <div id="editor-container" th:utext="${response.getContents()}"></div>
         </div>
         <div class="form-actions">
-            <button type="button" class="edit-btn">수정하기</button>
+            <button type="button" class="edit-btn" th:onclick="|fnPageMove('/board/boardEdit/${response.id}')|">수정하기</button>
             <button type="button" class="delete-btn">삭제</button>
         </div>
     </div>
     <script src="/js/common/edit.js"></script>
+    <script src="/js/common/commonApi.js"></script>
 </th:block>
 </html>
