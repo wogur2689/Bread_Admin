@@ -22,9 +22,16 @@
             <button type="button" class="delete-btn" th:onclick="|deleteBoard('${response.id}')|">삭제</button>
         </div>
     </div>
-    <script src="/js/common/edit.js"></script>
     <script src="/js/common/commonApi.js"></script>
     <script>
+        const quill = new Quill('#editor-container', {
+            theme: 'snow',
+            readOnly: true,
+            modules: {
+                toolbar: false
+            }
+        });
+
         function deleteBoard(id) {
             const param = {
                 'id' : id

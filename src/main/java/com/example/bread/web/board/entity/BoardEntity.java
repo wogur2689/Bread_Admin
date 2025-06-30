@@ -26,8 +26,15 @@ public class BoardEntity extends TimeEntity {
     //dto -> entity
     public static BoardEntity toEntity(BoardDto.BoardRequestDto boardDto) {
         return BoardEntity.builder()
+                .id(boardDto.getId())
                 .subject(boardDto.getSubject())
                 .contents(boardDto.getContents())
                 .build();
+    }
+
+    //변경 감지를 통한 업데이트
+    public void update(BoardDto.BoardRequestDto boardDto){
+        this.subject = boardDto.getSubject();
+        this.contents = boardDto.getContents();
     }
 }
