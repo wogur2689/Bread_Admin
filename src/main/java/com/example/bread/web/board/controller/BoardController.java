@@ -54,9 +54,6 @@ public class BoardController {
 
     @PostMapping("/api/{svc}")
     public ModelAndView boardApi(@PathVariable String svc, @RequestBody BoardDto.BoardRequestDto boardDto, ModelAndView mav) {
-        log.info("req : {}", boardDto.getId());
-        log.info("req : {}", boardDto.getSubject());
-        log.info("req : {}", boardDto.getContents());
         String code = svcSwitch(svc, boardDto);
         mav.addObject("code", code);
         mav.addObject("msg", CommonCode.getMessage(code));
