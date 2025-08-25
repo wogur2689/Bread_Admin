@@ -1,4 +1,4 @@
-package com.example.bread.web.payment.controller;
+package com.example.bread.web.transaction.controller;
 
 import com.example.bread.web.payment.entity.PaymentEntity;
 import jakarta.validation.constraints.NotBlank;
