@@ -19,6 +19,8 @@ public class ProductDto {
 
         @NotBlank(message = "가격을 입력해주세요.")
         private Long price;         //가격
+
+        private String desc;        //설명
     }
 
     @Getter
@@ -31,6 +33,7 @@ public class ProductDto {
         private String name;        //상품명
         private String imageUrl;    //이미지url
         private Long price;         //가격
+        private String desc;        //설명
     }
 
     //entity -> dto
@@ -39,6 +42,7 @@ public class ProductDto {
                 .name(product.getName())
                 .imageUrl(product.getImageUrl())
                 .price(product.getPrice())
+                .desc(product.getDesc())
                 .build();
     }
 }

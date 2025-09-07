@@ -26,12 +26,16 @@ public class ProductEntity extends TimeEntity {
     @Column(name = "image_url")
     private String imageUrl;    //이미지 경로
 
+    @Column(name = "desc")
+    private String desc;    //상세설명
+
     //dto -> entity
     public static ProductEntity toEntity(ProductDto.ProductRequestDto productDto) {
         return ProductEntity.builder()
                 .name(productDto.getName())
                 .price(productDto.getPrice())
                 .imageUrl(productDto.getImageUrl())
+                .desc(productDto.getDesc())
                 .build();
     }
 }
