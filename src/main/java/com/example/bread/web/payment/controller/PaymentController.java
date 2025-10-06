@@ -1,44 +1,74 @@
-package com.example.bread.web.payment.controller;
+package com.example.bread.web.Payment.controller;
 
+import com.example.bread.common.util.CommonCode;
+import com.example.bread.web.payment.dto.PaymentDto;
 import com.example.bread.web.payment.entity.PaymentEntity;
-import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import com.example.bread.web.payment.service.PaymentService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * 상품 관리
+ */
+@Slf4j
+@Controller
+@RequiredArgsConstructor
+@PreAuthorize("isAuthenticated()")
+@RequestMapping("/payment")
 public class PaymentController {
-    @Getter
-    @ToString
-    @AllArgsConstructor
-    public static class PaymentRequestDto {
-        private Long id;            //상품ID
+    private final PaymentService paymentService;
 
-        @NotBlank(message = "상품명을 입력해주세요.")
-        private String name;        //상품명
+    @GetMapping("/paymentList")
+    public ModelAndView list(ModelAndView mav, @RequestParam(defaultValue = "1") int page) {
+        Page<PaymentEntity> response = paymentService.list(page);
 
-        @NotBlank(message = "이미지 URL을 입력해주세요.")
-        private String imageUrl;    //이미지url
-
-        @NotBlank(message = "가격을 입력해주세요.")
-        private Long price;         //가격
+        mav.addObject("response", response);
+        mav.addObject("currentPage", page);
+        mav.addObject("totalPages", response.getTotalPages());
+        mav.setViewName("payment/payment_list");
+        return mav;
     }
 
-    @Getter
-    @Builder
-    @ToString
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class PaymentResponseDto {
-        private Long id;            //상품ID
-        private String name;        //상품명
-        private String imageUrl;    //이미지url
-        private Long price;         //가격
+    @GetMapping("/paymentView/{id}")
+    public ModelAndView view(@PathVariable Long id, ModelAndView mav) {
+        mav.addObject("response", paymentService.view(id));
+        mav.setViewName("payment/payment_view");
+        return mav;
     }
 
-    //entity -> dto
-    public static PaymentResponseDto toDto(PaymentEntity payment) {
-        return PaymentResponseDto.builder()
-                .name(payment.getName())
-                .imageUrl(payment.getImageUrl())
-                .price(payment.getPrice())
-                .build();
+    @GetMapping("/paymentEdit/{id}")
+    public ModelAndView edit(@PathVariable Long id, ModelAndView mav) {
+        mav.addObject("response", paymentService.view(id));
+        mav.setViewName("payment/payment_edit");
+        return mav;
+    }
+
+    @GetMapping("/paymentWrite")
+    public ModelAndView write(ModelAndView mav) {
+        mav.setViewName("payment/payment_write");
+        return mav;
+    }
+
+    @PostMapping("/api/{svc}")
+    public ModelAndView paymentApi(@PathVariable String svc, PaymentDto.PaymentRequestDto PaymentDto, ModelAndView mav) {
+        String code = svcSwitch(svc, PaymentDto);
+        mav.addObject("code", code);
+        mav.addObject("msg", CommonCode.getMessage(code));
+        mav.setViewName("jsonView");
+        return mav;
+    }
+
+    private String svcSwitch(String svc, PaymentDto.PaymentRequestDto PaymentDto) {
+        return switch (svc) {
+            case "insert" -> paymentService.insert(PaymentDto);
+            case "update" -> paymentService.update(PaymentDto);
+            case "delete" -> paymentService.delete(PaymentDto);
+            default -> CommonCode.CODE_0000.getCode();
+        };
     }
 }
