@@ -1,10 +1,10 @@
-package com.example.bread.web.transaction.dto;
+package com.example.bread.web.transaction.controller;
 
 import com.example.bread.web.payment.entity.PaymentEntity;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-public class PaymentDto {
+public class TransactionController {
     @Getter
     @ToString
     @AllArgsConstructor

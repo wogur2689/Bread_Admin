@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class PaymentService {
+public class TransactionService {
     private final PaymentRepository paymentRepository;
 
     @Transactional(readOnly = true)
