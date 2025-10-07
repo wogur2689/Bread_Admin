@@ -5,6 +5,9 @@ import com.example.bread.web.log.annotation.Loggable;
 import com.example.bread.web.payment.dto.PaymentDto;
 import com.example.bread.web.payment.entity.PaymentEntity;
 import com.example.bread.web.payment.repository.PaymentRepository;
+import com.example.bread.web.transaction.dto.TransactionDto;
+import com.example.bread.web.transaction.entity.TransactionEntity;
+import com.example.bread.web.transaction.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
@@ -21,46 +24,46 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 public class TransactionService {
-    private final PaymentRepository paymentRepository;
+    private final TransactionRepository transactionRepository;
 
     @Transactional(readOnly = true)
-    public Page<PaymentEntity> list(int page) {
+    public Page<TransactionEntity> list(int page) {
         Pageable pageable = PageRequest.of(page - 1, 10, Sort.by(Sort.Direction.DESC, "createdAt"));
-        return paymentRepository.findAll(pageable);
+        return transactionRepository.findAll(pageable);
     }
 
     @Transactional(readOnly = true)
-    public PaymentEntity view(Long id) {
-        return paymentRepository.findById(id).orElseThrow();
+    public TransactionEntity view(Long id) {
+        return transactionRepository.findById(id).orElseThrow();
     }
 
-    public String insert(PaymentDto.PaymentRequestDto paymentDto) {
+    public String insert(TransactionDto.TransactionRequestDto TransactionDto) {
         String code = CommonCode.CODE_0000.getCode();
         try {
-            PaymentEntity Payment = PaymentEntity.toEntity(paymentDto);
-            paymentRepository.save(Payment);
+            TransactionEntity transaction = TransactionEntity.toEntity(TransactionDto);
+            transactionRepository.save(transaction);
         } catch (DataAccessException | NullPointerException e) {
             code = "9999";
         }
         return code;
     }
 
-    public String update(PaymentDto.PaymentRequestDto paymentDto) {
+    public String update(TransactionDto.TransactionRequestDto transactionDto) {
         String code = CommonCode.CODE_0000.getCode();
         try {
-            PaymentEntity Payment = PaymentEntity.toEntity(paymentDto);
-            paymentRepository.save(Payment);
+            TransactionEntity transaction = TransactionEntity.toEntity(transactionDto);
+            transactionRepository.save(transaction);
         } catch (DataAccessException | NullPointerException e) {
             code = "9999";
         }
         return code;
     }
 
-    public String delete(PaymentDto.PaymentRequestDto paymentDto) {
+    public String delete(TransactionDto.TransactionRequestDto transactionDto) {
         String code = CommonCode.CODE_0000.getCode();
         try {
-            PaymentEntity Payment = PaymentEntity.toEntity(paymentDto);
-            paymentRepository.delete(Payment);
+            TransactionEntity Transaction = TransactionEntity.toEntity(transactionDto);
+            transactionRepository.delete(Transaction);
         } catch (DataAccessException | NullPointerException e) {
             code = "9999";
         }

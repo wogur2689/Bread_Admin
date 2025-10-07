@@ -1,17 +1,17 @@
 package com.example.bread.web.transaction.entity;
 
 import com.example.bread.common.entity.TimeEntity;
-import com.example.bread.web.payment.dto.PaymentDto;
+import com.example.bread.web.transaction.dto.TransactionDto;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
 @Entity
-@Table(name = "payment")
+@Table(name = "transaction")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PaymentEntity extends TimeEntity {
+public class TransactionEntity extends TimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -27,11 +27,11 @@ public class PaymentEntity extends TimeEntity {
     private String imageUrl;    //이미지 경로
 
     //dto -> entity
-    public static PaymentEntity toEntity(PaymentDto.PaymentRequestDto paymentDto) {
-        return PaymentEntity.builder()
-                .name(paymentDto.getName())
-                .price(paymentDto.getPrice())
-                .imageUrl(paymentDto.getImageUrl())
+    public static TransactionEntity toEntity(TransactionDto.TransactionRequestDto transationDto) {
+        return TransactionEntity.builder()
+                .name(transationDto.getName())
+                .price(transationDto.getPrice())
+                .imageUrl(transationDto.getImageUrl())
                 .build();
     }
 }

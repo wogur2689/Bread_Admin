@@ -8,7 +8,7 @@ public class TransactionDto {
     @Getter
     @ToString
     @AllArgsConstructor
-    public static class PaymentRequestDto {
+    public static class TransactionRequestDto {
         private Long id;            //상품ID
 
         @NotBlank(message = "상품명을 입력해주세요.")
@@ -26,7 +26,7 @@ public class TransactionDto {
     @ToString
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PaymentResponseDto {
+    public static class TransactionResponseDto {
         private Long id;            //상품ID
         private String name;        //상품명
         private String imageUrl;    //이미지url
@@ -34,8 +34,8 @@ public class TransactionDto {
     }
 
     //entity -> dto
-    public static PaymentResponseDto toDto(PaymentEntity payment) {
-        return PaymentResponseDto.builder()
+    public static TransactionResponseDto toDto(PaymentEntity payment) {
+        return TransactionResponseDto.builder()
                 .name(payment.getName())
                 .imageUrl(payment.getImageUrl())
                 .price(payment.getPrice())
