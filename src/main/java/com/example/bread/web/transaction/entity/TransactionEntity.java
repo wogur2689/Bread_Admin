@@ -17,21 +17,21 @@ public class TransactionEntity extends TimeEntity {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "orderId")
+    private String orderId;        //주문ID
+
+    @Column(name = "orderNo")
+    private String orderNo;        //주문번호
+
     @Column(name = "name")
-    private String name;        //상품명
+    private String name;           //상품명
 
-    @Column(name = "price")
-    private Long price;         //가격
+    @Column(name = "totalAmt")
+    private Long totalAmt;         //총금액
 
-    @Column(name = "image_url")
-    private String imageUrl;    //이미지 경로
+    @Column(name = "amt")
+    private Long amt;              //결제한 금액
 
-    //dto -> entity
-    public static TransactionEntity toEntity(TransactionDto.TransactionRequestDto transationDto) {
-        return TransactionEntity.builder()
-                .name(transationDto.getName())
-                .price(transationDto.getPrice())
-                .imageUrl(transationDto.getImageUrl())
-                .build();
-    }
+    @Column(name = "cnt")
+    private Integer cnt;           //수량
 }

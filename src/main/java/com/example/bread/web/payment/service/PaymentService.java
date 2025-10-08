@@ -33,37 +33,4 @@ public class PaymentService {
     public PaymentEntity view(Long id) {
         return paymentRepository.findById(id).orElseThrow();
     }
-
-    public String insert(PaymentDto.PaymentRequestDto paymentDto) {
-        String code = CommonCode.CODE_0000.getCode();
-        try {
-            PaymentEntity Payment = PaymentEntity.toEntity(paymentDto);
-            paymentRepository.save(Payment);
-        } catch (DataAccessException | NullPointerException e) {
-            code = "9999";
-        }
-        return code;
-    }
-
-    public String update(PaymentDto.PaymentRequestDto paymentDto) {
-        String code = CommonCode.CODE_0000.getCode();
-        try {
-            PaymentEntity Payment = PaymentEntity.toEntity(paymentDto);
-            paymentRepository.save(Payment);
-        } catch (DataAccessException | NullPointerException e) {
-            code = "9999";
-        }
-        return code;
-    }
-
-    public String delete(PaymentDto.PaymentRequestDto paymentDto) {
-        String code = CommonCode.CODE_0000.getCode();
-        try {
-            PaymentEntity Payment = PaymentEntity.toEntity(paymentDto);
-            paymentRepository.delete(Payment);
-        } catch (DataAccessException | NullPointerException e) {
-            code = "9999";
-        }
-        return code;
-    }
 }
