@@ -1,7 +1,5 @@
-package com.example.bread.web.Payment.controller;
+package com.example.bread.web.payment.controller;
 
-import com.example.bread.common.util.CommonCode;
-import com.example.bread.web.payment.dto.PaymentDto;
 import com.example.bread.web.payment.entity.PaymentEntity;
 import com.example.bread.web.payment.service.PaymentService;
 import lombok.RequiredArgsConstructor;

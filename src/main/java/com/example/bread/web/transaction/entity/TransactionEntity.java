@@ -1,7 +1,6 @@
 package com.example.bread.web.transaction.entity;
 
 import com.example.bread.common.entity.TimeEntity;
-import com.example.bread.web.transaction.dto.TransactionDto;
 import jakarta.persistence.*;
 import lombok.*;
 

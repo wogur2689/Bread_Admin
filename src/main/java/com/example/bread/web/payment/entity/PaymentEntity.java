@@ -1,7 +1,6 @@
 package com.example.bread.web.payment.entity;
 
 import com.example.bread.common.entity.TimeEntity;
-import com.example.bread.web.payment.dto.PaymentDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,13 +24,4 @@ public class PaymentEntity extends TimeEntity {
 
     @Column(name = "image_url")
     private String imageUrl;    //이미지 경로
-
-    //dto -> entity
-    public static PaymentEntity toEntity(PaymentDto.PaymentRequestDto paymentDto) {
-        return PaymentEntity.builder()
-                .name(paymentDto.getName())
-                .price(paymentDto.getPrice())
-                .imageUrl(paymentDto.getImageUrl())
-                .build();
-    }
 }

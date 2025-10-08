@@ -1,13 +1,10 @@
 package com.example.bread.web.payment.service;
 
-import com.example.bread.common.util.CommonCode;
 import com.example.bread.web.log.annotation.Loggable;
-import com.example.bread.web.payment.dto.PaymentDto;
 import com.example.bread.web.payment.entity.PaymentEntity;
 import com.example.bread.web.payment.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
