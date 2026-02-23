@@ -18,21 +18,21 @@ import org.springframework.web.servlet.ModelAndView;
 public class OrderController {
     private final OrderService orderService;
 
-    @GetMapping("/paymentList")
+    @GetMapping("/orderList")
     public ModelAndView list(ModelAndView mav, @RequestParam(defaultValue = "1") int page) {
         Page<OrderEntity> response = orderService.list(page);
 
         mav.addObject("response", response);
         mav.addObject("currentPage", page);
         mav.addObject("totalPages", response.getTotalPages());
-        mav.setViewName("payment/payment_list");
+        mav.setViewName("order/order_list");
         return mav;
     }
 
-    @GetMapping("/paymentView/{id}")
+    @GetMapping("/orderView/{id}")
     public ModelAndView view(@PathVariable Long id, ModelAndView mav) {
         mav.addObject("response", orderService.view(id));
-        mav.setViewName("payment/payment_view");
+        mav.setViewName("order/order_view");
         return mav;
     }
 }
