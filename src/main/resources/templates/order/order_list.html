@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/common/layout/default_layout}">
+<th:block layout:fragment="content">
+    <div class="community">
+        <h2 class="board-title">사용자 주문내역</h2>
+        <!-- Filter and Search/Create Section -->
+        <th:block th:replace="~{common/common/filter.html :: filter}"></th:block>
+
+        <!-- Posts Table -->
+        <table class="post-list">
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>상품명</th>
+                <th>주문자</th>
+                <th>주문일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="data : ${response.content}">
+                <td th:text="${data.id}" th:onclick="|fnPageMove('/order/orderView/${data.id}')|"></td>
+                <td th:text="${data.subject}"></td>
+                <td th:text="${data.createdBy}"></td>
+                <td th:text="${data.createdAt}"></td>
+            </tr>
+            <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <th:block th:replace="~{common/common/pagination.html :: pagination}"></th:block>
+    </div>
+</th:block>
+</html>
