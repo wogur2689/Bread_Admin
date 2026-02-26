@@ -10,12 +10,16 @@
 <th:block layout:fragment="content">
     <div class="post-view">
         <div class="form-group">
-            <label for="subject">상품명</label>
-            <input type="text" id="subject" th:value="${response.getSubject()}" readonly />
+            <label for="name">상품명</label>
+            <input type="text" id="name" th:value="${response.getName()}" readonly />
         </div>
         <div class="form-group">
-            <label for="editor-container">Content</label>
-            <div id="editor-container" th:utext="${response.getContents()}"></div>
+            <label for="totalAmt">총금액</label>
+            <input type="text" id="totalAmt" th:value="${response.getTotalAmt()}" readonly />
+        </div>
+        <div class="form-group">
+            <label for="cnt">수량</label>
+            <input type="text" id="cnt" th:value="${response.getCnt()}" readonly />
         </div>
     </div>
     <script src="/js/common/commonApi.js"></script>

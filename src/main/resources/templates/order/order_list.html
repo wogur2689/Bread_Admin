@@ -15,6 +15,7 @@
             <tr>
                 <th>번호</th>
                 <th>상품명</th>
+                <th>주문번호</th>
                 <th>주문자</th>
                 <th>주문일</th>
             </tr>
@@ -22,7 +23,8 @@
             <tbody>
             <tr th:each="data : ${response.content}">
                 <td th:text="${data.id}" th:onclick="|fnPageMove('/order/orderView/${data.id}')|"></td>
-                <td th:text="${data.subject}"></td>
+                <td th:text="${data.name}"></td>
+                <td th:text="${data.orderNo}"></td>
                 <td th:text="${data.createdBy}"></td>
                 <td th:text="${data.createdAt}"></td>
             </tr>
